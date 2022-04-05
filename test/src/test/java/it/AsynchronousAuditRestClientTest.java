@@ -1,19 +1,21 @@
 package it;
 
-import com.atlassian.jira.rest.client.api.AuditRestClient;
-import com.atlassian.jira.rest.client.api.OptionalIterable;
-import com.atlassian.jira.rest.client.api.domain.AuditAssociatedItem;
-import com.atlassian.jira.rest.client.api.domain.AuditChangedValue;
-import com.atlassian.jira.rest.client.api.domain.AuditRecord;
-import com.atlassian.jira.rest.client.api.domain.AuditRecordsData;
-import com.atlassian.jira.rest.client.api.domain.input.AuditRecordBuilder;
-import com.atlassian.jira.rest.client.api.domain.input.AuditRecordSearchInput;
-import com.atlassian.jira.rest.client.api.domain.input.UserInput;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
+
+import me.glindholm.jira.rest.client.api.AuditRestClient;
+import me.glindholm.jira.rest.client.api.OptionalIterable;
+import me.glindholm.jira.rest.client.api.domain.AuditAssociatedItem;
+import me.glindholm.jira.rest.client.api.domain.AuditChangedValue;
+import me.glindholm.jira.rest.client.api.domain.AuditRecord;
+import me.glindholm.jira.rest.client.api.domain.AuditRecordsData;
+import me.glindholm.jira.rest.client.api.domain.input.AuditRecordBuilder;
+import me.glindholm.jira.rest.client.api.domain.input.AuditRecordSearchInput;
+import me.glindholm.jira.rest.client.api.domain.input.UserInput;
+
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

@@ -19,21 +19,23 @@ package it;
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
 import com.atlassian.jira.rest.client.TestUtil;
-import com.atlassian.jira.rest.client.api.domain.AssigneeType;
-import com.atlassian.jira.rest.client.api.domain.BasicComponent;
-import com.atlassian.jira.rest.client.api.domain.Component;
-import com.atlassian.jira.rest.client.api.domain.EntityHelper;
-import com.atlassian.jira.rest.client.api.domain.input.ComponentInput;
-import com.atlassian.jira.rest.client.internal.ServerVersionConstants;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
 import com.google.common.collect.Iterables;
+
+import me.glindholm.jira.rest.client.api.domain.AssigneeType;
+import me.glindholm.jira.rest.client.api.domain.BasicComponent;
+import me.glindholm.jira.rest.client.api.domain.Component;
+import me.glindholm.jira.rest.client.api.domain.EntityHelper;
+import me.glindholm.jira.rest.client.api.domain.input.ComponentInput;
+import me.glindholm.jira.rest.client.internal.ServerVersionConstants;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.ws.rs.core.Response;
 
-import static com.atlassian.jira.rest.client.api.domain.EntityHelper.findEntityByName;
-import static com.atlassian.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_4_4;
+import static me.glindholm.jira.rest.client.api.domain.EntityHelper.findEntityByName;
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_4_4;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

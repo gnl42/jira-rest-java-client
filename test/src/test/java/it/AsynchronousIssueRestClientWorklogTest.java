@@ -18,19 +18,21 @@ package it;
 
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.api.IssueRestClient;
-import com.atlassian.jira.rest.client.api.RestClientException;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.TimeTracking;
-import com.atlassian.jira.rest.client.api.domain.Visibility;
-import com.atlassian.jira.rest.client.api.domain.Worklog;
-import com.atlassian.jira.rest.client.api.domain.input.WorklogInput;
-import com.atlassian.jira.rest.client.api.domain.input.WorklogInputBuilder;
-import com.atlassian.jira.rest.client.api.domain.util.ErrorCollection;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Sets;
+
+import me.glindholm.jira.rest.client.api.IssueRestClient;
+import me.glindholm.jira.rest.client.api.RestClientException;
+import me.glindholm.jira.rest.client.api.domain.Issue;
+import me.glindholm.jira.rest.client.api.domain.TimeTracking;
+import me.glindholm.jira.rest.client.api.domain.Visibility;
+import me.glindholm.jira.rest.client.api.domain.Worklog;
+import me.glindholm.jira.rest.client.api.domain.input.WorklogInput;
+import me.glindholm.jira.rest.client.api.domain.input.WorklogInputBuilder;
+import me.glindholm.jira.rest.client.api.domain.util.ErrorCollection;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +42,7 @@ import java.util.Set;
 
 import static com.atlassian.jira.rest.client.IntegrationTestUtil.GROUP_JIRA_ADMINISTRATORS;
 import static com.atlassian.jira.rest.client.TestUtil.toUri;
-import static com.atlassian.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;

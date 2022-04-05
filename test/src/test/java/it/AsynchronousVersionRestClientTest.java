@@ -20,17 +20,19 @@ import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.atlassian.jira.nimblefunctests.annotation.LongCondition;
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
 import com.atlassian.jira.rest.client.TestUtil;
-import com.atlassian.jira.rest.client.api.domain.EntityHelper;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.Version;
-import com.atlassian.jira.rest.client.api.domain.VersionRelatedIssuesCount;
-import com.atlassian.jira.rest.client.api.domain.input.VersionInput;
-import com.atlassian.jira.rest.client.api.domain.input.VersionInputBuilder;
-import com.atlassian.jira.rest.client.api.domain.input.VersionPosition;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
+import me.glindholm.jira.rest.client.api.domain.EntityHelper;
+import me.glindholm.jira.rest.client.api.domain.Issue;
+import me.glindholm.jira.rest.client.api.domain.Version;
+import me.glindholm.jira.rest.client.api.domain.VersionRelatedIssuesCount;
+import me.glindholm.jira.rest.client.api.domain.input.VersionInput;
+import me.glindholm.jira.rest.client.api.domain.input.VersionInputBuilder;
+import me.glindholm.jira.rest.client.api.domain.input.VersionPosition;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.hamcrest.collection.IsEmptyIterable;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,8 +42,8 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 
 import static com.atlassian.jira.rest.client.TestUtil.getLastPathSegment;
-import static com.atlassian.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_6;
 import static com.google.common.collect.Iterables.toArray;
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_6;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -18,13 +18,15 @@ package it;
 
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
 import com.atlassian.jira.rest.client.TestUtil;
-import com.atlassian.jira.rest.client.api.domain.EntityHelper;
-import com.atlassian.jira.rest.client.api.domain.Filter;
-import com.atlassian.jira.rest.client.api.domain.util.ErrorCollection;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
 import com.atlassian.jira.util.lang.Pair;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
+
+import me.glindholm.jira.rest.client.api.domain.EntityHelper;
+import me.glindholm.jira.rest.client.api.domain.Filter;
+import me.glindholm.jira.rest.client.api.domain.util.ErrorCollection;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Rule;

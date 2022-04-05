@@ -18,13 +18,14 @@ package it;
 
 import com.atlassian.jira.nimblefunctests.framework.NimbleFuncTestCase;
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.rest.client.auth.AnonymousAuthenticationHandler;
-import com.atlassian.jira.rest.client.auth.BasicHttpAuthenticationHandler;
-import com.atlassian.jira.rest.client.internal.ServerVersionConstants;
-import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
+
+import me.glindholm.jira.rest.client.api.JiraRestClient;
+import me.glindholm.jira.rest.client.api.JiraRestClientFactory;
+import me.glindholm.jira.rest.client.auth.AnonymousAuthenticationHandler;
+import me.glindholm.jira.rest.client.auth.BasicHttpAuthenticationHandler;
+import me.glindholm.jira.rest.client.internal.ServerVersionConstants;
+import me.glindholm.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
 
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;

@@ -2,9 +2,11 @@ package it;
 
 import com.atlassian.jira.nimblefunctests.framework.NimbleFuncTestCase;
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
 import com.atlassian.jira.testkit.client.Backdoor;
 import com.atlassian.jira.testkit.client.util.TestKitLocalEnvironmentData;
+
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.junit.Ignore;
 import org.junit.Test;
 

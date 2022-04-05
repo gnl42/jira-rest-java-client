@@ -16,11 +16,13 @@
 package it;
 
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.api.RestClientException;
-import com.atlassian.jira.rest.client.api.domain.Permissions;
-import com.atlassian.jira.rest.client.api.domain.input.MyPermissionsInput;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
 import com.google.common.base.Optional;
+
+import me.glindholm.jira.rest.client.api.RestClientException;
+import me.glindholm.jira.rest.client.api.domain.Permissions;
+import me.glindholm.jira.rest.client.api.domain.input.MyPermissionsInput;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.junit.Before;
 import org.junit.Test;
 

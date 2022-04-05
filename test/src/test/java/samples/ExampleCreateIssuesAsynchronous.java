@@ -16,16 +16,16 @@
 
 package samples;
 
-import com.atlassian.jira.rest.client.api.IssueRestClient;
-import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.domain.BasicIssue;
-import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
-import com.atlassian.jira.rest.client.api.domain.input.IssueInputBuilder;
-import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import io.atlassian.util.concurrent.Promise;
+import me.glindholm.jira.rest.client.api.IssueRestClient;
+import me.glindholm.jira.rest.client.api.JiraRestClient;
+import me.glindholm.jira.rest.client.api.domain.BasicIssue;
+import me.glindholm.jira.rest.client.api.domain.input.IssueInput;
+import me.glindholm.jira.rest.client.api.domain.input.IssueInputBuilder;
+import me.glindholm.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 
 import java.io.IOException;
 import java.net.URI;

@@ -17,15 +17,17 @@
 package com.atlassian.jira.rest.client;
 
 import com.atlassian.jira.functest.framework.Administration;
-import com.atlassian.jira.rest.client.api.RestClientException;
-import com.atlassian.jira.rest.client.api.domain.BasicUser;
-import com.atlassian.jira.rest.client.api.domain.User;
-import com.atlassian.jira.rest.client.auth.BasicHttpAuthenticationHandler;
-import com.atlassian.jira.rest.client.internal.ServerVersionConstants;
-import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.jira.testkit.client.Backdoor;
 import com.atlassian.jira.webtests.util.LocalTestEnvironmentData;
 import com.google.common.collect.ImmutableMap;
+
+import me.glindholm.jira.rest.client.api.RestClientException;
+import me.glindholm.jira.rest.client.api.domain.BasicUser;
+import me.glindholm.jira.rest.client.api.domain.User;
+import me.glindholm.jira.rest.client.auth.BasicHttpAuthenticationHandler;
+import me.glindholm.jira.rest.client.internal.ServerVersionConstants;
+import me.glindholm.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
+
 import org.apache.commons.lang.StringUtils;
 
 import javax.annotation.Nullable;
@@ -82,8 +84,8 @@ public class IntegrationTestUtil {
 
     static {
         try {
-            final com.atlassian.jira.rest.client.api.JiraRestClientFactory clientFactory = new AsynchronousJiraRestClientFactory();
-            final com.atlassian.jira.rest.client.api.JiraRestClient client = clientFactory.create(environmentData.getBaseUrl()
+            final me.glindholm.jira.rest.client.api.JiraRestClientFactory clientFactory = new AsynchronousJiraRestClientFactory();
+            final me.glindholm.jira.rest.client.api.JiraRestClient client = clientFactory.create(environmentData.getBaseUrl()
                     .toURI(), new BasicHttpAuthenticationHandler("admin", "admin"));
 
             int determinedBuildNumber;

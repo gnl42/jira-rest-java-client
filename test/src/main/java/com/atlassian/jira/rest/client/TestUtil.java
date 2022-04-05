@@ -16,13 +16,14 @@
 
 package com.atlassian.jira.rest.client;
 
-import com.atlassian.jira.rest.client.api.RestClientException;
-import com.atlassian.jira.rest.client.api.domain.OperationGroup;
-import com.atlassian.jira.rest.client.api.domain.OperationLink;
-import com.atlassian.jira.rest.client.api.domain.Transition;
-import com.atlassian.jira.rest.client.api.domain.util.ErrorCollection;
 import com.google.common.collect.Iterators;
 import junit.framework.Assert;
+import me.glindholm.jira.rest.client.api.RestClientException;
+import me.glindholm.jira.rest.client.api.domain.OperationGroup;
+import me.glindholm.jira.rest.client.api.domain.OperationLink;
+import me.glindholm.jira.rest.client.api.domain.Transition;
+import me.glindholm.jira.rest.client.api.domain.util.ErrorCollection;
+
 import org.apache.commons.lang.StringUtils;
 import org.hamcrest.Matchers;
 import org.joda.time.DateTime;
@@ -106,7 +107,7 @@ public class TestUtil {
         try {
             runnable.run();
             Assert.fail(RestClientException.class + " exception expected");
-        } catch (com.atlassian.jira.rest.client.api.RestClientException e) {
+        } catch (me.glindholm.jira.rest.client.api.RestClientException e) {
             Assert.assertTrue(e.getStatusCode().isPresent());
             Assert.assertEquals(errorCode, e.getStatusCode().get().intValue());
             if (!StringUtils.isEmpty(message)) {
@@ -129,7 +130,7 @@ public class TestUtil {
         try {
             runnable.run();
             Assert.fail(RestClientException.class + " exception expected");
-        } catch (com.atlassian.jira.rest.client.api.RestClientException ex) {
+        } catch (me.glindholm.jira.rest.client.api.RestClientException ex) {
             final ErrorCollection errorElement = getOnlyElement(ex.getErrorCollections().iterator());
             final String errorMessage = getOnlyElement(errorElement.getErrorMessages().iterator());
             Assert.assertTrue("'" + ex.getMessage() + "' does not match regexp '" + regExp + "'", errorMessage.matches(regExp));
@@ -182,7 +183,7 @@ public class TestUtil {
         try {
             runnable.run();
             Assert.fail(RestClientException.class + " exception expected");
-        } catch (com.atlassian.jira.rest.client.api.RestClientException e) {
+        } catch (me.glindholm.jira.rest.client.api.RestClientException e) {
             Assert.assertEquals(e.getErrorCollections(), expectedErrors);
         }
     }

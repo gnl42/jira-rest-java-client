@@ -18,17 +18,19 @@ package it;
 
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
 import com.atlassian.jira.rest.client.TestUtil;
-import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.rest.client.api.domain.Session;
-import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
+
+import me.glindholm.jira.rest.client.api.JiraRestClient;
+import me.glindholm.jira.rest.client.api.JiraRestClientFactory;
+import me.glindholm.jira.rest.client.api.domain.Session;
+import me.glindholm.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.atlassian.jira.rest.client.internal.json.TestConstants.ADMIN_PASSWORD;
-import static com.atlassian.jira.rest.client.internal.json.TestConstants.ADMIN_USERNAME;
+import static me.glindholm.jira.rest.client.internal.json.TestConstants.ADMIN_PASSWORD;
+import static me.glindholm.jira.rest.client.internal.json.TestConstants.ADMIN_USERNAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

@@ -18,20 +18,22 @@ package it;
 
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.api.IssueRestClient;
-import com.atlassian.jira.rest.client.api.domain.Comment;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
+import me.glindholm.jira.rest.client.api.IssueRestClient;
+import me.glindholm.jira.rest.client.api.domain.Comment;
+import me.glindholm.jira.rest.client.api.domain.Issue;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static com.atlassian.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 

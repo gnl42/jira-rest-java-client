@@ -1,8 +1,10 @@
 package com.atlassian.jira.rest.client.test.matchers;
 
-import com.atlassian.jira.rest.client.api.RestClientException;
-import com.atlassian.jira.rest.client.api.domain.util.ErrorCollection;
 import com.google.common.collect.ImmutableList;
+
+import me.glindholm.jira.rest.client.api.RestClientException;
+import me.glindholm.jira.rest.client.api.domain.util.ErrorCollection;
+
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

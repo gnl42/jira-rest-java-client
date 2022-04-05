@@ -19,18 +19,20 @@ package it;
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
 import com.atlassian.jira.rest.client.TestUtil;
-import com.atlassian.jira.rest.client.api.AddressableEntity;
-import com.atlassian.jira.rest.client.api.OptionalIterable;
-import com.atlassian.jira.rest.client.api.domain.BasicProject;
-import com.atlassian.jira.rest.client.api.domain.IssueType;
-import com.atlassian.jira.rest.client.api.domain.Priority;
-import com.atlassian.jira.rest.client.api.domain.Project;
-import com.atlassian.jira.rest.client.api.domain.Resolution;
-import com.atlassian.jira.rest.client.internal.ServerVersionConstants;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+
+import me.glindholm.jira.rest.client.api.AddressableEntity;
+import me.glindholm.jira.rest.client.api.OptionalIterable;
+import me.glindholm.jira.rest.client.api.domain.BasicProject;
+import me.glindholm.jira.rest.client.api.domain.IssueType;
+import me.glindholm.jira.rest.client.api.domain.Priority;
+import me.glindholm.jira.rest.client.api.domain.Project;
+import me.glindholm.jira.rest.client.api.domain.Resolution;
+import me.glindholm.jira.rest.client.internal.ServerVersionConstants;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +42,7 @@ import javax.ws.rs.core.Response;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 
-import static com.atlassian.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

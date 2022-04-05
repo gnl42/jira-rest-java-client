@@ -16,8 +16,10 @@
 package it;
 
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
+
+import me.glindholm.jira.rest.client.api.domain.Issue;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.junit.Before;
 import org.junit.Test;
 

@@ -16,8 +16,10 @@
 
 package com.atlassian.jira.rest.client.test.matchers;
 
-import com.atlassian.jira.rest.client.api.NamedEntity;
 import com.google.common.collect.Lists;
+
+import me.glindholm.jira.rest.client.api.NamedEntity;
+
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;

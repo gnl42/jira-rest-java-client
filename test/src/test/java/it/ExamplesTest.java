@@ -1,17 +1,19 @@
 package it;
 
 import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.api.IssueRestClient;
-import com.atlassian.jira.rest.client.api.domain.BasicVotes;
-import com.atlassian.jira.rest.client.api.domain.BasicWatchers;
-import com.atlassian.jira.rest.client.api.domain.ChangelogGroup;
-import com.atlassian.jira.rest.client.api.domain.Comment;
-import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.Resolution;
-import com.atlassian.jira.rest.client.internal.json.TestConstants;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
+import me.glindholm.jira.rest.client.api.IssueRestClient;
+import me.glindholm.jira.rest.client.api.domain.BasicVotes;
+import me.glindholm.jira.rest.client.api.domain.BasicWatchers;
+import me.glindholm.jira.rest.client.api.domain.ChangelogGroup;
+import me.glindholm.jira.rest.client.api.domain.Comment;
+import me.glindholm.jira.rest.client.api.domain.Issue;
+import me.glindholm.jira.rest.client.api.domain.Resolution;
+import me.glindholm.jira.rest.client.internal.json.TestConstants;
+
 import org.codehaus.jettison.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
