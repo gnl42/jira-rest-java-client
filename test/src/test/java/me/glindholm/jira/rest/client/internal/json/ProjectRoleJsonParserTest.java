@@ -15,9 +15,9 @@
  */
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.TestUtil;
 import com.google.common.collect.Iterables;
 
+import m2.glindholm.jira.rest.client.TestUtil;
 import me.glindholm.jira.rest.client.api.domain.ProjectRole;
 import me.glindholm.jira.rest.client.api.domain.RoleActor;
 import me.glindholm.jira.rest.client.internal.json.ProjectRoleJsonParser;
@@ -29,10 +29,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
+
 import java.net.MalformedURLException;
 import java.net.URI;
-
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
 
 public class ProjectRoleJsonParserTest {
 

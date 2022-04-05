@@ -16,9 +16,6 @@
 
 package it;
 
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.JiraRestClient;
 import me.glindholm.jira.rest.client.api.JiraRestClientFactory;
 import me.glindholm.jira.rest.client.api.domain.Session;
@@ -28,6 +25,9 @@ import me.glindholm.jira.rest.client.internal.json.TestConstants;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
+import m2.glindholm.jira.rest.client.TestUtil;
 
 import static me.glindholm.jira.rest.client.internal.json.TestConstants.ADMIN_PASSWORD;
 import static me.glindholm.jira.rest.client.internal.json.TestConstants.ADMIN_USERNAME;

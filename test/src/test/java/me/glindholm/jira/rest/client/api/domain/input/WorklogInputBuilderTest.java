@@ -1,7 +1,5 @@
 package me.glindholm.jira.rest.client.api.domain.input;
 
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.input.WorklogInput;
 import me.glindholm.jira.rest.client.api.domain.input.WorklogInputBuilder;
 
@@ -9,6 +7,8 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.TestUtil;
 
 import static me.glindholm.jira.rest.client.api.domain.input.WorklogInput.AdjustEstimate;
 import static me.glindholm.jira.rest.client.api.domain.input.WorklogInputBuilder.ESTIMATE_UNIT_MINUTES;

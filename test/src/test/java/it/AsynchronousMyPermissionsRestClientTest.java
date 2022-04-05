@@ -15,9 +15,9 @@
  */
 package it;
 
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
 import com.google.common.base.Optional;
 
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
 import me.glindholm.jira.rest.client.api.RestClientException;
 import me.glindholm.jira.rest.client.api.domain.Permissions;
 import me.glindholm.jira.rest.client.api.domain.input.MyPermissionsInput;

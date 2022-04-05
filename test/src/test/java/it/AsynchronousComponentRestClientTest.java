@@ -17,10 +17,10 @@
 package it;
 
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.TestUtil;
 import com.google.common.collect.Iterables;
 
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
+import m2.glindholm.jira.rest.client.TestUtil;
 import me.glindholm.jira.rest.client.api.domain.AssigneeType;
 import me.glindholm.jira.rest.client.api.domain.BasicComponent;
 import me.glindholm.jira.rest.client.api.domain.Component;

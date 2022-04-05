@@ -16,8 +16,6 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.test.matchers.DateTimeMatcher;
-
 import me.glindholm.jira.rest.client.api.domain.Version;
 import me.glindholm.jira.rest.client.internal.json.VersionJsonParser;
 
@@ -26,6 +24,8 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Assert;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.test.matchers.DateTimeMatcher;
 
 import java.net.URI;
 import java.net.URISyntaxException;

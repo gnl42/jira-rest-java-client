@@ -16,8 +16,6 @@
 
 package me.glindholm.jira.rest.client.internal.json.gen;
 
-import com.atlassian.jira.rest.client.test.matchers.JSONObjectMatcher;
-
 import me.glindholm.jira.rest.client.api.domain.BasicUser;
 import me.glindholm.jira.rest.client.api.domain.Visibility;
 import me.glindholm.jira.rest.client.api.domain.input.WorklogInput;
@@ -30,10 +28,12 @@ import org.joda.time.DateTimeZone;
 import org.junit.Assert;
 import org.junit.Test;
 
+import m2.glindholm.jira.rest.client.test.matchers.JSONObjectMatcher;
+
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
+
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
 
 public class WorklogInputJsonGeneratorTest {
 

@@ -16,8 +16,6 @@
 
 package me.glindholm.jira.rest.client.internal.json.gen;
 
-import com.atlassian.jira.rest.client.test.matchers.JSONObjectMatcher;
-
 import me.glindholm.jira.rest.client.api.domain.input.UserInput;
 import me.glindholm.jira.rest.client.internal.json.ResourceUtil;
 import me.glindholm.jira.rest.client.internal.json.gen.UserInputJsonGenerator;
@@ -25,6 +23,8 @@ import me.glindholm.jira.rest.client.internal.json.gen.UserInputJsonGenerator;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.test.matchers.JSONObjectMatcher;
 
 import java.util.Collections;
 

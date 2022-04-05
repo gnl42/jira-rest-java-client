@@ -15,13 +15,13 @@
  */
 package it;
 
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.Issue;
 import me.glindholm.jira.rest.client.internal.json.TestConstants;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;

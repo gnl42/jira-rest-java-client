@@ -18,10 +18,10 @@ package it;
 
 import com.atlassian.jira.functest.framework.admin.GeneralConfiguration;
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.TestUtil;
 import com.google.common.collect.ImmutableList;
 
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
+import m2.glindholm.jira.rest.client.TestUtil;
 import me.glindholm.jira.rest.client.api.ExpandableProperty;
 import me.glindholm.jira.rest.client.api.domain.User;
 import me.glindholm.jira.rest.client.internal.json.TestConstants;
@@ -32,8 +32,8 @@ import org.junit.Test;
 
 import javax.ws.rs.core.Response;
 
-import static com.atlassian.jira.rest.client.IntegrationTestUtil.USER_SLASH;
-import static com.atlassian.jira.rest.client.IntegrationTestUtil.USER_SLASH_60;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.USER_SLASH;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.USER_SLASH_60;
 import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_4_3;
 import static me.glindholm.jira.rest.client.internal.json.TestConstants.ADMIN_USERNAME;
 import static org.junit.Assert.assertEquals;

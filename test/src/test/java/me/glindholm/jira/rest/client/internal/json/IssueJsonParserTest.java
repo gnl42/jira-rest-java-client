@@ -57,9 +57,9 @@ import org.junit.Test;
 import java.util.Collections;
 import java.util.Iterator;
 
-import static com.atlassian.jira.rest.client.TestUtil.toDateTime;
-import static com.atlassian.jira.rest.client.TestUtil.toDateTimeFromIsoDate;
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import static m2.glindholm.jira.rest.client.TestUtil.toDateTime;
+import static m2.glindholm.jira.rest.client.TestUtil.toDateTimeFromIsoDate;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 import static me.glindholm.jira.rest.client.api.domain.EntityHelper.findAttachmentByFileName;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;

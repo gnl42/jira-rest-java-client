@@ -17,12 +17,12 @@ package it;
 
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.atlassian.jira.nimblefunctests.annotation.LongCondition;
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
 import me.glindholm.jira.rest.client.api.RestClientException;
 import me.glindholm.jira.rest.client.api.domain.EntityHelper;
 import me.glindholm.jira.rest.client.api.domain.Project;
@@ -43,8 +43,8 @@ import org.junit.rules.ExpectedException;
 
 import java.net.URI;
 
-import static com.atlassian.jira.rest.client.IntegrationTestUtil.buildUserAvatarUri;
-import static com.atlassian.jira.rest.client.test.matchers.RestClientExceptionMatchers.rceWithSingleError;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.buildUserAvatarUri;
+import static m2.glindholm.jira.rest.client.test.matchers.RestClientExceptionMatchers.rceWithSingleError;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

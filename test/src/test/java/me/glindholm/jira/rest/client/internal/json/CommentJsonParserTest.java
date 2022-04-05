@@ -16,8 +16,6 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.Comment;
 import me.glindholm.jira.rest.client.api.domain.Visibility;
 import me.glindholm.jira.rest.client.internal.json.CommentJsonParser;
@@ -26,6 +24,8 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.TestUtil;
 
 
 public class CommentJsonParserTest {

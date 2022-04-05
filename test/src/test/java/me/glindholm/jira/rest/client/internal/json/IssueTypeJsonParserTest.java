@@ -16,16 +16,16 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.IssueType;
 import me.glindholm.jira.rest.client.internal.json.IssueTypeJsonParser;
+
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 
 import org.codehaus.jettison.json.JSONException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import m2.glindholm.jira.rest.client.TestUtil;
 
 public class IssueTypeJsonParserTest {
     @Test

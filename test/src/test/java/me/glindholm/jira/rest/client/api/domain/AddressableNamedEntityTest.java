@@ -16,15 +16,15 @@
 
 package me.glindholm.jira.rest.client.api.domain;
 
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.AddressableNamedEntity;
+
+import static m2.glindholm.jira.rest.client.TestUtil.assertNotEquals;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.atlassian.jira.rest.client.TestUtil.assertNotEquals;
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import m2.glindholm.jira.rest.client.TestUtil;
 
 public class AddressableNamedEntityTest {
 

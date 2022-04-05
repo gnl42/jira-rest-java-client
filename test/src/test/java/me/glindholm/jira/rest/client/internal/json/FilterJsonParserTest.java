@@ -24,7 +24,7 @@ import org.junit.Test;
 import me.glindholm.jira.rest.client.api.domain.Filter;
 import me.glindholm.jira.rest.client.internal.json.FilterJsonParser;
 
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 import static me.glindholm.jira.rest.client.internal.json.TestConstants.USER_ADMIN_BASIC_LATEST;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anyOf;

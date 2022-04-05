@@ -19,7 +19,7 @@ package me.glindholm.jira.rest.client;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.atlassian.jira.rest.client.TestUtil;
+import m2.glindholm.jira.rest.client.TestUtil;
 
 public class TestUtilTest {
     @Test

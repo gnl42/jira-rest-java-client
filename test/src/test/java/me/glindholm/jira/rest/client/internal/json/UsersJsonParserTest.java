@@ -16,9 +16,9 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.TestUtil;
 import com.google.common.collect.Iterables;
 
+import m2.glindholm.jira.rest.client.TestUtil;
 import me.glindholm.jira.rest.client.api.domain.User;
 import me.glindholm.jira.rest.client.internal.json.UsersJsonParser;
 

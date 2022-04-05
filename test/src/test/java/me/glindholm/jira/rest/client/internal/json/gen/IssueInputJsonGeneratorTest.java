@@ -16,10 +16,10 @@
 
 package me.glindholm.jira.rest.client.internal.json.gen;
 
-import com.atlassian.jira.rest.client.test.matchers.JSONObjectMatcher;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
+import m2.glindholm.jira.rest.client.test.matchers.JSONObjectMatcher;
 import me.glindholm.jira.rest.client.api.domain.input.ComplexIssueInputFieldValue;
 import me.glindholm.jira.rest.client.api.domain.input.FieldInput;
 import me.glindholm.jira.rest.client.api.domain.input.IssueInput;

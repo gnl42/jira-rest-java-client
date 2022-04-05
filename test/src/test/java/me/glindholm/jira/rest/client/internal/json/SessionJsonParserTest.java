@@ -16,14 +16,14 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.LoginInfo;
 import me.glindholm.jira.rest.client.api.domain.Session;
 import me.glindholm.jira.rest.client.internal.json.SessionJsonParser;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.TestUtil;
 
 import static org.junit.Assert.assertEquals;
 

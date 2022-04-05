@@ -16,14 +16,14 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.BasicVotes;
 import me.glindholm.jira.rest.client.internal.json.BasicVotesJsonParser;
 
 import org.codehaus.jettison.json.JSONException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.TestUtil;
 
 /**
  * @since v0.1

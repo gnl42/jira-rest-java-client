@@ -16,12 +16,12 @@
 package it;
 
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Streams;
 
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
 import me.glindholm.jira.rest.client.api.GetCreateIssueMetadataOptionsBuilder;
 import me.glindholm.jira.rest.client.api.domain.Attachment;
 import me.glindholm.jira.rest.client.api.domain.BasicUser;
@@ -59,12 +59,12 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
-import static com.atlassian.jira.rest.client.IntegrationTestUtil.USER1;
-import static com.atlassian.jira.rest.client.IntegrationTestUtil.getUserUri;
-import static com.atlassian.jira.rest.client.TestUtil.assertErrorCode;
 import static com.google.common.collect.Iterables.size;
 import static com.google.common.collect.Iterables.toArray;
 import static java.util.Collections.singletonList;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.USER1;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.getUserUri;
+import static m2.glindholm.jira.rest.client.TestUtil.assertErrorCode;
 import static me.glindholm.jira.rest.client.api.IssueRestClient.Expandos.CHANGELOG;
 import static me.glindholm.jira.rest.client.api.IssueRestClient.Expandos.OPERATIONS;
 import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;

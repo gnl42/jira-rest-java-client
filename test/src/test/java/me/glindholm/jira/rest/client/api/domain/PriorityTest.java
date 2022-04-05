@@ -16,15 +16,15 @@
 
 package me.glindholm.jira.rest.client.api.domain;
 
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.Priority;
+
+import static m2.glindholm.jira.rest.client.TestUtil.assertNotEquals;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.atlassian.jira.rest.client.TestUtil.assertNotEquals;
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import m2.glindholm.jira.rest.client.TestUtil;
 
 public class PriorityTest {
     private static final Priority P1 = new Priority(toUri("http://localhost/1"), 1L, "a", "#223344", "a description", toUri("http://localhost/2"));

@@ -16,17 +16,17 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.TestUtil;
 import com.google.common.collect.ImmutableMap;
 
+import m2.glindholm.jira.rest.client.TestUtil;
 import me.glindholm.jira.rest.client.api.domain.BasicComponent;
 import me.glindholm.jira.rest.client.api.domain.BasicUser;
 import me.glindholm.jira.rest.client.api.domain.User;
 import me.glindholm.jira.rest.client.api.domain.Version;
 
-import java.net.URI;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import java.net.URI;
 
 /**
  * Constants used in various unit tests.

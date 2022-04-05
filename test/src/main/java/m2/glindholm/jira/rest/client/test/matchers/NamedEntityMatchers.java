@@ -10,40 +10,38 @@
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and 
+ * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
-package com.atlassian.jira.rest.client.test.matchers;
+package m2.glindholm.jira.rest.client.test.matchers;
 
 import com.google.common.collect.Lists;
 
-import me.glindholm.jira.rest.client.api.AddressableEntity;
+import me.glindholm.jira.rest.client.api.NamedEntity;
 
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 
-import java.net.URI;
 import java.util.Collection;
 
-public class AddressableEntityMatchers {
-
-    public static Matcher<? super AddressableEntity> withSelf(URI uri) {
-        return new FeatureMatcher<AddressableEntity, URI>(Matchers.is(uri), "entity with self that", "self") {
+public class NamedEntityMatchers {
+    public static Matcher<? super NamedEntity> withName(String name) {
+        return new FeatureMatcher<NamedEntity, String>(Matchers.is(name), "entity with name that", "name") {
 
             @Override
-            protected URI featureValueOf(AddressableEntity AddressableEntity) {
-                return AddressableEntity.getSelf();
+            protected String featureValueOf(NamedEntity namedEntity) {
+                return namedEntity.getName();
             }
         };
     }
 
-    public static Matcher<Iterable<? extends AddressableEntity>> entitiesWithSelf(URI... uris) {
-        final Collection<Matcher<? super AddressableEntity>> matchers = Lists.newArrayListWithCapacity(uris.length);
-        for (URI uri : uris) {
-            matchers.add(withSelf(uri));
+    public static Matcher<Iterable<? extends NamedEntity>> entitiesWithNames(String... names) {
+        final Collection<Matcher<? super NamedEntity>> matchers = Lists.newArrayListWithCapacity(names.length);
+        for (String key : names) {
+            matchers.add(withName(key));
         }
         return IsIterableContainingInAnyOrder.containsInAnyOrder(matchers);
     }

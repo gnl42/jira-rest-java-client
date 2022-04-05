@@ -16,15 +16,15 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.Visibility;
 import me.glindholm.jira.rest.client.api.domain.Worklog;
 import me.glindholm.jira.rest.client.internal.json.WorklogJsonParser;
 
 import org.junit.Test;
 
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import m2.glindholm.jira.rest.client.TestUtil;
+
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 

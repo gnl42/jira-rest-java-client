@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.atlassian.jira.rest.client.test.matchers;
+package m2.glindholm.jira.rest.client.test.matchers;
 
 import org.hamcrest.Description;
 import org.junit.internal.matchers.TypeSafeMatcher;

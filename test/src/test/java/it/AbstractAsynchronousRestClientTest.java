@@ -17,8 +17,8 @@
 package it;
 
 import com.atlassian.jira.nimblefunctests.framework.NimbleFuncTestCase;
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
 
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
 import me.glindholm.jira.rest.client.api.JiraRestClient;
 import me.glindholm.jira.rest.client.api.JiraRestClientFactory;
 import me.glindholm.jira.rest.client.auth.AnonymousAuthenticationHandler;

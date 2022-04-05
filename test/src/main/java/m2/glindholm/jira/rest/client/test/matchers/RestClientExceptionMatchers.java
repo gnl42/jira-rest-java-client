@@ -1,4 +1,4 @@
-package com.atlassian.jira.rest.client.test.matchers;
+package m2.glindholm.jira.rest.client.test.matchers;
 
 import com.google.common.collect.ImmutableList;
 

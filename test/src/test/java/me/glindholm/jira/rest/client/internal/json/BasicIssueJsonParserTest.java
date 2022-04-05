@@ -21,7 +21,7 @@ import org.junit.Test;
 import me.glindholm.jira.rest.client.api.domain.BasicIssue;
 import me.glindholm.jira.rest.client.internal.json.BasicIssueJsonParser;
 
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 import static org.junit.Assert.assertEquals;
 
 public class BasicIssueJsonParserTest {

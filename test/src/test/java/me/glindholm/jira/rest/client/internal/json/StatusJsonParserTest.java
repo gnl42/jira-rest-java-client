@@ -16,6 +16,8 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
+
 import org.codehaus.jettison.json.JSONException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,8 +25,6 @@ import org.junit.Test;
 import me.glindholm.jira.rest.client.api.StatusCategory;
 import me.glindholm.jira.rest.client.api.domain.Status;
 import me.glindholm.jira.rest.client.internal.json.StatusJsonParser;
-
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
 
 public class StatusJsonParserTest {
 

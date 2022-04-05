@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.atlassian.jira.rest.client;
+package m2.glindholm.jira.rest.client;
 
 import com.atlassian.jira.functest.framework.Administration;
 import com.atlassian.jira.testkit.client.Backdoor;

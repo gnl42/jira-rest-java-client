@@ -16,13 +16,13 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.BasicPriority;
 import me.glindholm.jira.rest.client.internal.json.BasicPriorityJsonParser;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.TestUtil;
 
 public class BasicPriorityJsonParserTest {
     @Test

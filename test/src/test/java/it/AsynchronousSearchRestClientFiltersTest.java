@@ -16,12 +16,12 @@
 
 package it;
 
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.TestUtil;
 import com.atlassian.jira.util.lang.Pair;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
+import m2.glindholm.jira.rest.client.TestUtil;
 import me.glindholm.jira.rest.client.api.domain.EntityHelper;
 import me.glindholm.jira.rest.client.api.domain.Filter;
 import me.glindholm.jira.rest.client.api.domain.util.ErrorCollection;
@@ -35,8 +35,8 @@ import org.junit.rules.ExpectedException;
 
 import java.util.List;
 
-import static com.atlassian.jira.rest.client.IntegrationTestUtil.USER_ADMIN_60;
-import static com.atlassian.jira.rest.client.IntegrationTestUtil.resolveURI;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.USER_ADMIN_60;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.resolveURI;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;

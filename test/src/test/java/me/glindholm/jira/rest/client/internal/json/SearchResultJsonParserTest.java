@@ -33,11 +33,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static com.atlassian.jira.rest.client.TestUtil.assertEmptyIterable;
-import static com.atlassian.jira.rest.client.TestUtil.toDateTime;
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
-import static com.atlassian.jira.rest.client.test.matchers.IssueMatchers.issuesWithKeys;
-import static com.atlassian.jira.rest.client.test.matchers.SearchResultMatchers.searchResultWithParamsAndIssueCount;
+import static m2.glindholm.jira.rest.client.TestUtil.assertEmptyIterable;
+import static m2.glindholm.jira.rest.client.TestUtil.toDateTime;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
+import static m2.glindholm.jira.rest.client.test.matchers.IssueMatchers.issuesWithKeys;
+import static m2.glindholm.jira.rest.client.test.matchers.SearchResultMatchers.searchResultWithParamsAndIssueCount;
 import static me.glindholm.jira.rest.client.api.domain.EntityHelper.findEntityById;
 import static me.glindholm.jira.rest.client.internal.json.ResourceUtil.getJsonObjectFromResource;
 import static org.junit.Assert.assertEquals;

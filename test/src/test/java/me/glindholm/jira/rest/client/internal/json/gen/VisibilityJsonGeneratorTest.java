@@ -16,14 +16,14 @@
 
 package me.glindholm.jira.rest.client.internal.json.gen;
 
-import com.atlassian.jira.rest.client.test.matchers.JSONObjectMatcher;
-
 import me.glindholm.jira.rest.client.api.domain.Visibility;
 import me.glindholm.jira.rest.client.internal.json.ResourceUtil;
 import me.glindholm.jira.rest.client.internal.json.gen.VisibilityJsonGenerator;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.test.matchers.JSONObjectMatcher;
 
 public class VisibilityJsonGeneratorTest {
 

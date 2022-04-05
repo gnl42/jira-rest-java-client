@@ -17,14 +17,14 @@
 package it;
 
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.TestUtil;
-import com.atlassian.jira.rest.client.test.matchers.AddressableEntityMatchers;
-import com.atlassian.jira.rest.client.test.matchers.NamedEntityMatchers;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
+import m2.glindholm.jira.rest.client.TestUtil;
+import m2.glindholm.jira.rest.client.test.matchers.AddressableEntityMatchers;
+import m2.glindholm.jira.rest.client.test.matchers.NamedEntityMatchers;
 import me.glindholm.jira.rest.client.api.RestClientException;
 import me.glindholm.jira.rest.client.api.SearchRestClient;
 import me.glindholm.jira.rest.client.api.domain.BasicPriority;
@@ -51,9 +51,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 import static com.atlassian.jira.nimblefunctests.annotation.LongCondition.LESS_THAN;
-import static com.atlassian.jira.rest.client.IntegrationTestUtil.resolveURI;
-import static com.atlassian.jira.rest.client.TestUtil.assertEmptyIterable;
-import static com.atlassian.jira.rest.client.TestUtil.toDateTime;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.resolveURI;
+import static m2.glindholm.jira.rest.client.TestUtil.assertEmptyIterable;
+import static m2.glindholm.jira.rest.client.TestUtil.toDateTime;
 import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_6_1;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anyOf;

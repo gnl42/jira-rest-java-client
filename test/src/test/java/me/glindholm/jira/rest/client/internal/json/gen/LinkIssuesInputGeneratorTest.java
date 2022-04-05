@@ -16,8 +16,6 @@
 
 package me.glindholm.jira.rest.client.internal.json.gen;
 
-import com.atlassian.jira.rest.client.test.matchers.JSONObjectMatcher;
-
 import me.glindholm.jira.rest.client.api.domain.Comment;
 import me.glindholm.jira.rest.client.api.domain.ServerInfo;
 import me.glindholm.jira.rest.client.api.domain.input.LinkIssuesInput;
@@ -27,6 +25,8 @@ import me.glindholm.jira.rest.client.internal.json.gen.LinkIssuesInputGenerator;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.test.matchers.JSONObjectMatcher;
 
 public class LinkIssuesInputGeneratorTest {
 

@@ -6,7 +6,7 @@ import org.junit.Test;
 import me.glindholm.jira.rest.client.api.domain.BasicUser;
 import me.glindholm.jira.rest.client.internal.json.BasicUserJsonParser;
 
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 import static me.glindholm.jira.rest.client.internal.json.ResourceUtil.getJsonObjectFromResource;
 
 public class BasicUserJsonParserTest {

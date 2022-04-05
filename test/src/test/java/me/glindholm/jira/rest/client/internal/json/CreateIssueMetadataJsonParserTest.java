@@ -42,7 +42,7 @@ import org.junit.matchers.JUnitMatchers;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 import static org.junit.Assert.assertEquals;
 
 /**

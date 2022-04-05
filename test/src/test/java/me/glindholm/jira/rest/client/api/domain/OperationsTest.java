@@ -26,8 +26,8 @@ import me.glindholm.jira.rest.client.api.domain.Operations;
 
 import java.util.Collections;
 
-import static com.atlassian.jira.rest.client.TestUtil.EMPTY_GROUPS;
-import static com.atlassian.jira.rest.client.TestUtil.EMPTY_LINKS;
+import static m2.glindholm.jira.rest.client.TestUtil.EMPTY_GROUPS;
+import static m2.glindholm.jira.rest.client.TestUtil.EMPTY_LINKS;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.instanceOf;

@@ -157,7 +157,7 @@
                         <exclude>it2/**</exclude>
                     </excludes>
                     <forkMode>once</forkMode>
-                    <skip>true</skip> <!-- tomcat fails to spin up, looking for wrong names of jars: a.jar but a-1.jar in folder -->
+                    <skipITs>true</skipITs> <!-- tomcat fails to spin up, looking for wrong names of jars: a.jar but a-1.jar in folder -->
                 </configuration>
             </plugin>
             <plugin>

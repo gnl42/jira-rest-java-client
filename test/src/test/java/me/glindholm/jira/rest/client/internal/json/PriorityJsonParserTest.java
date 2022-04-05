@@ -16,13 +16,13 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import me.glindholm.jira.rest.client.api.domain.Priority;
 import me.glindholm.jira.rest.client.internal.json.PriorityJsonParser;
-
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
 
 public class PriorityJsonParserTest {
     @Test

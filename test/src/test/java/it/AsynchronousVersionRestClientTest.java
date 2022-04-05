@@ -18,12 +18,12 @@ package it;
 
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.atlassian.jira.nimblefunctests.annotation.LongCondition;
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
-import com.atlassian.jira.rest.client.TestUtil;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
+import m2.glindholm.jira.rest.client.TestUtil;
 import me.glindholm.jira.rest.client.api.domain.EntityHelper;
 import me.glindholm.jira.rest.client.api.domain.Issue;
 import me.glindholm.jira.rest.client.api.domain.Version;
@@ -41,8 +41,8 @@ import javax.annotation.Nullable;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 
-import static com.atlassian.jira.rest.client.TestUtil.getLastPathSegment;
 import static com.google.common.collect.Iterables.toArray;
+import static m2.glindholm.jira.rest.client.TestUtil.getLastPathSegment;
 import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_6;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;

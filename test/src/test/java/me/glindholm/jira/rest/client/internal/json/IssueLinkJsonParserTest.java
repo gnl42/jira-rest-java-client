@@ -16,14 +16,14 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.atlassian.jira.rest.client.TestUtil;
-
 import me.glindholm.jira.rest.client.api.domain.IssueLink;
 import me.glindholm.jira.rest.client.api.domain.IssueLinkType;
 import me.glindholm.jira.rest.client.internal.json.IssueLinkJsonParser;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.TestUtil;
 
 public class IssueLinkJsonParserTest {
     @Test

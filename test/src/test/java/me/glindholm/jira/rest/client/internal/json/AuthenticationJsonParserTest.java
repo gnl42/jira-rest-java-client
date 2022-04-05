@@ -16,6 +16,8 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
+import static m2.glindholm.jira.rest.client.TestUtil.toDateTime;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,8 +25,6 @@ import me.glindholm.jira.rest.client.api.domain.Authentication;
 import me.glindholm.jira.rest.client.api.domain.LoginInfo;
 import me.glindholm.jira.rest.client.api.domain.SessionCookie;
 import me.glindholm.jira.rest.client.internal.json.AuthenticationJsonParser;
-
-import static com.atlassian.jira.rest.client.TestUtil.toDateTime;
 
 
 public class AuthenticationJsonParserTest {

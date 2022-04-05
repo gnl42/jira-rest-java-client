@@ -16,6 +16,8 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Assert;
@@ -23,8 +25,6 @@ import org.junit.Test;
 
 import me.glindholm.jira.rest.client.api.domain.Attachment;
 import me.glindholm.jira.rest.client.internal.json.AttachmentJsonParser;
-
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
 
 public class AttachmentJsonParserTest {
 

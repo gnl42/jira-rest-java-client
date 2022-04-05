@@ -26,7 +26,7 @@ import me.glindholm.jira.rest.client.internal.json.RoleActorJsonParser;
 
 import java.net.URI;
 
-import static com.atlassian.jira.rest.client.TestUtil.toUri;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
 import static me.glindholm.jira.rest.client.internal.json.ResourceUtil.getJsonObjectFromResource;
 
 public class RoleActorJsonParserTest {

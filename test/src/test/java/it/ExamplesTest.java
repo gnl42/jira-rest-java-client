@@ -1,10 +1,10 @@
 package it;
 
-import com.atlassian.jira.rest.client.IntegrationTestUtil;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import m2.glindholm.jira.rest.client.IntegrationTestUtil;
 import me.glindholm.jira.rest.client.api.IssueRestClient;
 import me.glindholm.jira.rest.client.api.domain.BasicVotes;
 import me.glindholm.jira.rest.client.api.domain.BasicWatchers;
