@@ -24,12 +24,12 @@
             <artifactId>fugue</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.atlassian.jira</groupId>
+            <groupId>me.glindholm.jira</groupId>
             <artifactId>jira-rest-java-client-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.atlassian.jira</groupId>
+            <groupId>me.glindholm.jira</groupId>
             <artifactId>jira-rest-java-client-core</artifactId>
             <version>${project.version}</version>
         </dependency>
