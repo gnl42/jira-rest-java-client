@@ -15,14 +15,15 @@
  */
 package me.glindholm.jira.rest.client.internal.async;
 
+import java.net.URI;
+
 import com.atlassian.httpclient.api.HttpClient;
+import com.atlassian.httpclient.api.factory.HttpClientOptions;
 
 import me.glindholm.jira.rest.client.api.AuthenticationHandler;
 import me.glindholm.jira.rest.client.api.JiraRestClient;
 import me.glindholm.jira.rest.client.api.JiraRestClientFactory;
 import me.glindholm.jira.rest.client.auth.BasicHttpAuthenticationHandler;
-
-import java.net.URI;
 
 /**
  * Serves asynchronous implementations of the JiraRestClient.
@@ -33,8 +34,13 @@ public class AsynchronousJiraRestClientFactory implements JiraRestClientFactory 
 
     @Override
     public JiraRestClient create(final URI serverUri, final AuthenticationHandler authenticationHandler) {
+        return create(serverUri, authenticationHandler);
+    }
+
+    @Override
+    public JiraRestClient create(URI serverUri, AuthenticationHandler authenticationHandler, HttpClientOptions options) {
         final DisposableHttpClient httpClient = new AsynchronousHttpClientFactory()
-                .createClient(serverUri, authenticationHandler);
+                .createClient(serverUri, authenticationHandler, options);
         return new AsynchronousJiraRestClient(serverUri, httpClient);
     }
 
@@ -44,8 +50,19 @@ public class AsynchronousJiraRestClientFactory implements JiraRestClientFactory 
     }
 
     @Override
+    public JiraRestClient createWithBasicHttpAuthentication(URI serverUri, String username, String password, HttpClientOptions options) {
+        return create(serverUri, new BasicHttpAuthenticationHandler(username, password), options);
+    }
+
+
+    @Override
     public JiraRestClient createWithAuthenticationHandler(final URI serverUri, final AuthenticationHandler authenticationHandler) {
         return create(serverUri, authenticationHandler);
+    }
+
+    @Override
+    public JiraRestClient createWithAuthenticationHandler(URI serverUri, AuthenticationHandler authenticationHandler, HttpClientOptions options) {
+        return create(serverUri, authenticationHandler, options);
     }
 
     @Override
@@ -53,4 +70,5 @@ public class AsynchronousJiraRestClientFactory implements JiraRestClientFactory 
         final DisposableHttpClient disposableHttpClient = new AsynchronousHttpClientFactory().createClient(httpClient);
         return new AsynchronousJiraRestClient(serverUri, disposableHttpClient);
     }
+
 }
