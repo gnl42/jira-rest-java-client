@@ -30,6 +30,10 @@ public class Subtask {
         return issueKey;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public URI getIssueUri() {
         return issueUri;
     }
