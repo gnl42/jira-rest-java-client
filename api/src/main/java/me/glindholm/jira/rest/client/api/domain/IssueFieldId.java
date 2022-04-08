@@ -51,7 +51,7 @@ public enum IssueFieldId {
     WATCHER_FIELD("watches"),
     WATCHER_PRE_5_0_FIELD("watcher"),
     WORKLOG_FIELD("worklog"),
-    WORKLOGS_FIELD("worklogs");
+    WORKLOGS_FIELD("worklogs"), PARENT_FIELD("parent");
 
     public final String id;
 

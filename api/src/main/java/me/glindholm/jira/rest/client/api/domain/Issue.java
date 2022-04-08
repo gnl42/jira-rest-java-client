@@ -16,21 +16,19 @@
 
 package me.glindholm.jira.rest.client.api.domain;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
-
-import me.glindholm.jira.rest.client.api.ExpandableResource;
-import me.glindholm.jira.rest.client.api.domain.util.UriUtil;
-
-import org.joda.time.DateTime;
-
-import javax.annotation.Nullable;
-
-import static me.glindholm.jira.rest.client.api.IssueRestClient.Expandos;
-
 import java.net.URI;
 import java.util.Collection;
 import java.util.Set;
+
+import javax.annotation.Nullable;
+
+import org.joda.time.DateTime;
+
+import com.google.common.base.MoreObjects;
+
+import me.glindholm.jira.rest.client.api.ExpandableResource;
+import me.glindholm.jira.rest.client.api.IssueRestClient.Expandos;
+import me.glindholm.jira.rest.client.api.domain.util.UriUtil;
 
 /**
  * Single JIRA issue
@@ -40,15 +38,15 @@ import java.util.Set;
 public class Issue extends BasicIssue implements ExpandableResource {
 
     public Issue(String summary, URI self, String key, Long id, BasicProject project, IssueType issueType, Status status,
-                 String description, @Nullable BasicPriority priority, @Nullable Resolution resolution, Collection<Attachment> attachments,
-                 @Nullable User reporter, @Nullable User assignee, DateTime creationDate, DateTime updateDate, DateTime dueDate,
-                 Collection<Version> affectedVersions, Collection<Version> fixVersions, Collection<BasicComponent> components,
-                 @Nullable TimeTracking timeTracking, Collection<IssueField> issueFields, Collection<Comment> comments,
-                 @Nullable URI transitionsUri,
-                 @Nullable Collection<IssueLink> issueLinks,
-                 BasicVotes votes, Collection<Worklog> worklogs, BasicWatchers watchers, Iterable<String> expandos,
-                 @Nullable Collection<Subtask> subtasks, @Nullable Collection<ChangelogGroup> changelog, @Nullable Operations operations,
-                 Set<String> labels) {
+            String description, @Nullable BasicPriority priority, @Nullable Resolution resolution, Collection<Attachment> attachments,
+            @Nullable User reporter, @Nullable User assignee, DateTime creationDate, DateTime updateDate, DateTime dueDate,
+            Collection<Version> affectedVersions, Collection<Version> fixVersions, Collection<BasicComponent> components,
+            @Nullable TimeTracking timeTracking, Collection<IssueField> issueFields, Collection<Comment> comments,
+            @Nullable URI transitionsUri,
+            @Nullable Collection<IssueLink> issueLinks,
+            BasicVotes votes, Collection<Worklog> worklogs, BasicWatchers watchers, Iterable<String> expandos,
+            @Nullable Collection<Subtask> subtasks, @Nullable Collection<ChangelogGroup> changelog, @Nullable Operations operations,
+            Set<String> labels, @Nullable BasicIssue parent) {
         super(self, key, id);
         this.summary = summary;
         this.project = project;
@@ -79,6 +77,7 @@ public class Issue extends BasicIssue implements ExpandableResource {
         this.changelog = changelog;
         this.operations = operations;
         this.labels = labels;
+        this.parent = parent;
     }
 
     private final Status status;
@@ -125,6 +124,8 @@ public class Issue extends BasicIssue implements ExpandableResource {
     @Nullable
     private final Operations operations;
     private final Set<String> labels;
+    @Nullable
+    private final BasicIssue parent;
 
     public Status getStatus() {
         return status;
@@ -357,6 +358,10 @@ public class Issue extends BasicIssue implements ExpandableResource {
         return description;
     }
 
+    public BasicIssue getParent() {
+        return parent;
+    }
+
     @Override
     protected MoreObjects.ToStringHelper getToStringHelper() {
         return super.getToStringHelper().
@@ -385,6 +390,7 @@ public class Issue extends BasicIssue implements ExpandableResource {
                 add("timeTracking", timeTracking).
                 add("changelog", changelog).
                 add("operations", operations).
-                add("labels", labels);
+                add("labels", labels).
+                add("parent", parent);
     }
 }
