@@ -53,8 +53,7 @@ public class AsynchronousHttpClientFactory {
 
     public DisposableHttpClient createClient(final URI serverUri, final AuthenticationHandler authenticationHandler, final HttpClientOptions options) {
         final DefaultHttpClientFactory<Object> defaultHttpClientFactory = new DefaultHttpClientFactory<>(new NoOpEventPublisher(),
-                new RestClientApplicationProperties(serverUri),
-                new ThreadLocalContextManager<Object>() {
+                new RestClientApplicationProperties(serverUri), new ThreadLocalContextManager<Object>() {
             @Override
             public Object getThreadLocalContext() {
                 return null;
@@ -112,7 +111,8 @@ public class AsynchronousHttpClientFactory {
     }
 
     /**
-     * These properties are used to present JRJC as a User-Agent during http requests.
+     * These properties are used to present JRJC as a User-Agent during http
+     * requests.
      */
     @SuppressWarnings("deprecation")
     private static class RestClientApplicationProperties implements ApplicationProperties {
@@ -206,15 +206,15 @@ public class AsynchronousHttpClientFactory {
         static String getVersion(String groupId, String artifactId) {
             final Properties props = new Properties();
             try (InputStream resourceAsStream = MavenUtils.class
-                    .getResourceAsStream(String
-                            .format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId))) {
-                props.load(resourceAsStream);
-                return props.getProperty("version", UNKNOWN_VERSION);
+                    .getResourceAsStream(String.format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId))) {
+                if (resourceAsStream != null) {
+                    props.load(resourceAsStream);
+                    return props.getProperty("version", UNKNOWN_VERSION);
+                }
             } catch (Exception e) {
-                logger.debug("Could not find version for maven artifact {}:{}", groupId, artifactId);
-                logger.debug("Got the following exception", e);
-                return UNKNOWN_VERSION;
             }
+            logger.debug("Could not find version for maven artifact {}:{}", groupId, artifactId);
+            return UNKNOWN_VERSION;
         }
     }
 
