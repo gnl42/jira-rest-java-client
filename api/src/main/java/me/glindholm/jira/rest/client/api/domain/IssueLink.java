@@ -16,10 +16,10 @@
 
 package me.glindholm.jira.rest.client.api.domain;
 
+import java.net.URI;
+
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-
-import java.net.URI;
 
 /**
  * Link between two JIRA issues
@@ -27,14 +27,20 @@ import java.net.URI;
  * @since v0.1
  */
 public class IssueLink {
+    private final long targetIssueId;
     private final String targetIssueKey;
     private final URI targetIssueUri;
     private final IssueLinkType issueLinkType;
 
-    public IssueLink(String targetIssueKey, URI targetIssueUri, IssueLinkType issueLinkType) {
+    public IssueLink(String targetIssueKey, long targetIssueId, URI targetIssueUri, IssueLinkType issueLinkType) {
+        this.targetIssueId = targetIssueId;
         this.targetIssueKey = targetIssueKey;
         this.targetIssueUri = targetIssueUri;
         this.issueLinkType = issueLinkType;
+    }
+
+    public long getTargetIssueId() {
+        return targetIssueId;
     }
 
     public String getTargetIssueKey() {

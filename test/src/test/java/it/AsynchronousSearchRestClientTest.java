@@ -16,6 +16,30 @@
 
 package it;
 
+import static com.atlassian.jira.nimblefunctests.annotation.LongCondition.LESS_THAN;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.resolveURI;
+import static m2.glindholm.jira.rest.client.TestUtil.assertEmptyIterable;
+import static m2.glindholm.jira.rest.client.TestUtil.toDateTime;
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_6_1;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Set;
+
+import javax.ws.rs.core.Response;
+
+import org.hamcrest.collection.IsIterableContainingInOrder;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
@@ -41,29 +65,6 @@ import me.glindholm.jira.rest.client.api.domain.TimeTracking;
 import me.glindholm.jira.rest.client.api.domain.Version;
 import me.glindholm.jira.rest.client.api.domain.Worklog;
 import me.glindholm.jira.rest.client.internal.json.TestConstants;
-
-import org.hamcrest.collection.IsIterableContainingInOrder;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.ws.rs.core.Response;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Set;
-
-import static com.atlassian.jira.nimblefunctests.annotation.LongCondition.LESS_THAN;
-import static m2.glindholm.jira.rest.client.IntegrationTestUtil.resolveURI;
-import static m2.glindholm.jira.rest.client.TestUtil.assertEmptyIterable;
-import static m2.glindholm.jira.rest.client.TestUtil.toDateTime;
-import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_6_1;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 
 public class AsynchronousSearchRestClientTest extends AbstractAsynchronousRestClientTest {
 
@@ -220,7 +221,7 @@ public class AsynchronousSearchRestClientTest extends AbstractAsynchronousRestCl
                 anyOf(
                         hasProperty("iconUrl", is(resolveURI("images/icons/statuses/open.png"))), // Jira >= 5.2
                         hasProperty("iconUrl", is(resolveURI("images/icons/status_open.gif"))) // Jira < 5.2
-                )));
+                        )));
         assertEmptyIterable(issue.getComments());  // not expanded by default
         assertEmptyIterable(issue.getComponents());
         assertEmptyIterable(issue.getWorklogs());
@@ -252,7 +253,7 @@ public class AsynchronousSearchRestClientTest extends AbstractAsynchronousRestCl
                 is(resolveURI("images/icons/issuetypes/task.png")),
                 is(resolveURI("images/icons/task.gif")),
                 is(resolveURI("secure/viewavatar?size=xsmall&avatarId=10178&avatarType=issuetype"))
-        ));
+                ));
     }
 
     @Test
@@ -288,7 +289,7 @@ public class AsynchronousSearchRestClientTest extends AbstractAsynchronousRestCl
                 resolveURI("rest/api/2/issue/10010/worklog/10012"),
                 resolveURI("rest/api/2/issue/10010/worklog/10020"),
                 resolveURI("rest/api/2/issue/10010/worklog/10021")
-        ));
+                ));
 
         final Worklog actualWorklog = Iterables.getLast(worklogs);
         final Worklog expectedWorklog = new Worklog(resolveURI("rest/api/2/issue/10010/worklog/10021"),
@@ -299,9 +300,11 @@ public class AsynchronousSearchRestClientTest extends AbstractAsynchronousRestCl
 
         // issue links
         assertThat(issue.getIssueLinks(), IsIterableContainingInOrder.contains(
-                new IssueLink("TST-1", resolveURI("rest/api/2/issue/10000"), new IssueLinkType("Duplicate", "duplicates", IssueLinkType.Direction.OUTBOUND)),
-                new IssueLink("TST-1", resolveURI("rest/api/2/issue/10000"), new IssueLinkType("Duplicate", "is duplicated by", IssueLinkType.Direction.INBOUND))
-        ));
+                new IssueLink("TST-1", 10000, resolveURI("rest/api/2/issue/10000"),
+                        new IssueLinkType("Duplicate", "duplicates", IssueLinkType.Direction.OUTBOUND)),
+                new IssueLink("TST-1", 10000, resolveURI("rest/api/2/issue/10000"),
+                        new IssueLinkType("Duplicate", "is duplicated by", IssueLinkType.Direction.INBOUND))
+                ));
 
         // fix versions
         final Version actualFixVersion = Iterables.getOnlyElement(issue.getFixVersions());
@@ -312,7 +315,7 @@ public class AsynchronousSearchRestClientTest extends AbstractAsynchronousRestCl
         assertThat(issue.getAffectedVersions(), IsIterableContainingInOrder.contains(
                 new Version(resolveURI("rest/api/2/version/10001"), 10001L, "1", "initial version", false, false, null),
                 new Version(resolveURI("rest/api/2/version/10000"), 10000L, "1.1", "Some version", false, false, toDateTime("2010-08-25T00:00:00.000"))
-        ));
+                ));
 
         // dates
         assertNull(issue.getDueDate());

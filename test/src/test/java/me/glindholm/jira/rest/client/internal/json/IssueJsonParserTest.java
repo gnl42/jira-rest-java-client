@@ -16,6 +16,30 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
+import static m2.glindholm.jira.rest.client.TestUtil.toDateTime;
+import static m2.glindholm.jira.rest.client.TestUtil.toDateTimeFromIsoDate;
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
+import static me.glindholm.jira.rest.client.api.domain.EntityHelper.findAttachmentByFileName;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+
+import java.util.Collections;
+import java.util.Iterator;
+
+import org.apache.commons.lang.StringUtils;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+import org.hamcrest.collection.IsEmptyCollection;
+import org.hamcrest.collection.IsEmptyIterable;
+import org.joda.time.format.ISODateTimeFormat;
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
@@ -43,31 +67,6 @@ import me.glindholm.jira.rest.client.api.domain.Subtask;
 import me.glindholm.jira.rest.client.api.domain.TimeTracking;
 import me.glindholm.jira.rest.client.api.domain.Visibility;
 import me.glindholm.jira.rest.client.api.domain.Worklog;
-import me.glindholm.jira.rest.client.internal.json.IssueJsonParser;
-
-import org.apache.commons.lang.StringUtils;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-import org.hamcrest.collection.IsEmptyCollection;
-import org.hamcrest.collection.IsEmptyIterable;
-import org.joda.time.format.ISODateTimeFormat;
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.util.Collections;
-import java.util.Iterator;
-
-import static m2.glindholm.jira.rest.client.TestUtil.toDateTime;
-import static m2.glindholm.jira.rest.client.TestUtil.toDateTimeFromIsoDate;
-import static m2.glindholm.jira.rest.client.TestUtil.toUri;
-import static me.glindholm.jira.rest.client.api.domain.EntityHelper.findAttachmentByFileName;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 
 // Ignore "May produce NPE" warnings, as we know what we are doing in tests
 @SuppressWarnings("ConstantConditions")
@@ -100,11 +99,11 @@ public class IssueJsonParserTest {
 
         // issue links
         Assert.assertThat(issue.getIssueLinks(), containsInAnyOrder(
-                new IssueLink("TST-1", toUri("http://localhost:8090/jira/rest/api/2/issue/10000"),
+                new IssueLink("TST-1", 10000, toUri("http://localhost:8090/jira/rest/api/2/issue/10000"),
                         new IssueLinkType("Duplicate", "duplicates", IssueLinkType.Direction.OUTBOUND)),
-                new IssueLink("TST-1", toUri("http://localhost:8090/jira/rest/api/2/issue/10000"),
+                new IssueLink("TST-1", 10000, toUri("http://localhost:8090/jira/rest/api/2/issue/10000"),
                         new IssueLinkType("Duplicate", "is duplicated by", IssueLinkType.Direction.INBOUND))
-        ));
+                ));
 
         // watchers
         final BasicWatchers watchers = issue.getWatchers();
@@ -218,14 +217,14 @@ public class IssueJsonParserTest {
     }
 
     // TODO: temporary disabled as we want to run integration tests. Fix JRJC-122 and re-enable this test
-//	@Test
-//	public void testParseIssueWithUserPickerCustomFieldFilledOut() throws JSONException {
-//		final Issue issue = parseIssue("/json/issue/valid-user-picker-custom-field-filled-out.json");
-//		final IssueField extraUserField = issue.getFieldByName("Extra User");
-//		assertNotNull(extraUserField);
-//		assertEquals(BasicUser.class, extraUserField.getValue().getClass());
-//		assertEquals(TestConstants.USER1, extraUserField.getValue());
-//	}
+    //	@Test
+    //	public void testParseIssueWithUserPickerCustomFieldFilledOut() throws JSONException {
+    //		final Issue issue = parseIssue("/json/issue/valid-user-picker-custom-field-filled-out.json");
+    //		final IssueField extraUserField = issue.getFieldByName("Extra User");
+    //		assertNotNull(extraUserField);
+    //		assertEquals(BasicUser.class, extraUserField.getValue().getClass());
+    //		assertEquals(TestConstants.USER1, extraUserField.getValue());
+    //	}
 
     @Test
     public void testParseIssueWithUserPickerCustomFieldEmpty() throws JSONException {
@@ -344,14 +343,14 @@ public class IssueJsonParserTest {
                 ImmutableList.of(
                         new ChangelogItem(FieldType.JIRA, "duedate", null, null, "2012-04-12", "2012-04-12 00:00:00.0"),
                         new ChangelogItem(FieldType.CUSTOM, "Radio Field", null, null, "10000", "One")
-                ));
+                        ));
 
         verifyChangelog(iterator.next(),
                 "2012-04-12T14:28:44.079+0200",
                 user1,
                 ImmutableList.of(
                         new ChangelogItem(FieldType.JIRA, "assignee", "user1", "User One", "user2", "User Two")
-                ));
+                        ));
 
         verifyChangelog(iterator.next(),
                 "2012-04-12T14:30:09.690+0200",
@@ -365,14 +364,14 @@ public class IssueJsonParserTest {
                         new ChangelogItem(FieldType.JIRA, "duedate", "2012-04-12", "2012-04-12 00:00:00.0", "2012-04-13", "2012-04-13 00:00:00.0"),
                         new ChangelogItem(FieldType.CUSTOM, "Radio Field", "10000", "One", "10001", "Two"),
                         new ChangelogItem(FieldType.CUSTOM, "Text Field", null, "Initial text field value", null, "Modified text field value")
-                ));
+                        ));
 
         verifyChangelog(iterator.next(),
                 "2012-04-12T14:28:44.079+0200",
                 null,
                 ImmutableList.of(
                         new ChangelogItem(FieldType.JIRA, "assignee", "user1", "User One", "user2", "User Two")
-                ));
+                        ));
     }
 
     private static void verifyChangelog(ChangelogGroup changelogGroup, String createdDate, BasicUser author, Iterable<ChangelogItem> expectedItems) {
@@ -415,7 +414,7 @@ public class IssueJsonParserTest {
                         null)),
                 null,
                 20
-        )))));
+                )))));
     }
 
 }

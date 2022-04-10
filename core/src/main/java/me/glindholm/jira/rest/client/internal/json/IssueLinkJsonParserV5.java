@@ -16,14 +16,14 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
+import java.net.URI;
+
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import me.glindholm.jira.rest.client.api.domain.IssueLink;
 import me.glindholm.jira.rest.client.api.domain.IssueLinkType;
 import me.glindholm.jira.rest.client.api.domain.IssuelinksType;
-
-import java.net.URI;
 
 public class IssueLinkJsonParserV5 implements JsonObjectParser<IssueLink> {
     private final IssuelinksTypeJsonParserV5 issuelinksTypeJsonParserV5 = new IssuelinksTypeJsonParserV5();
@@ -42,10 +42,11 @@ public class IssueLinkJsonParserV5 implements JsonObjectParser<IssueLink> {
         }
 
         final String key = link.getString("key");
+        final long targetIssueId = link.getLong("id");
         final URI targetIssueUri = JsonParseUtil.parseURI(link.getString("self"));
         final IssueLinkType issueLinkType = new IssueLinkType(issuelinksType.getName(),
                 direction.equals(IssueLinkType.Direction.INBOUND) ? issuelinksType.getInward()
                         : issuelinksType.getOutward(), direction);
-        return new IssueLink(key, targetIssueUri, issueLinkType);
+        return new IssueLink(key, targetIssueId, targetIssueUri, issueLinkType);
     }
 }
