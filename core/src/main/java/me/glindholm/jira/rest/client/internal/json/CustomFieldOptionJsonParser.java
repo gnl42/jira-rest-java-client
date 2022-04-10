@@ -16,14 +16,14 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
+import java.net.URI;
+import java.util.Collections;
+
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import me.glindholm.jira.rest.client.api.domain.CustomFieldOption;
-
-import java.net.URI;
-import java.util.Collections;
 
 /**
  * JSON parser for CustomFieldOption
@@ -41,13 +41,17 @@ public class CustomFieldOptionJsonParser implements JsonObjectParser<CustomField
         final String value = json.getString("value");
 
         final JSONArray childrenArray = json.optJSONArray("children");
-        final Iterable<CustomFieldOption> children = (childrenArray != null)
+        final Iterable<CustomFieldOption> children = childrenArray != null
                 ? childrenParser.parse(childrenArray)
-                : Collections.<CustomFieldOption>emptyList();
+                        : Collections.<CustomFieldOption>emptyList();
 
         final JSONObject childObject = json.optJSONObject("child");
-        final CustomFieldOption child = (childObject != null) ? parse(childObject) : null;
+        final CustomFieldOption child = childObject != null ? parse(childObject) : null;
 
         return new CustomFieldOption(id, selfUri, value, children, child);
+    }
+
+    public JsonArrayParser<Iterable<CustomFieldOption>> getChildrenParser() {
+        return childrenParser;
     }
 }
