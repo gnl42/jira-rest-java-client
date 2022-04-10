@@ -192,6 +192,7 @@
          "type":"attachment",
          "value":[
             {
+                "id": 10040,
                "self":"http://localhost:2990/jira/rest/api/latest/attachment/10040",
                "filename":"dla Pawła.txt",
                "author":{
@@ -205,6 +206,7 @@
                "content":"http://localhost:2990/jira/secure/attachment/10040/dla+Paw%C5%82a.txt"
             },
             {
+              "id": 10020,
                "self":"http://localhost:2990/jira/rest/api/latest/attachment/10020",
                "filename":"snipe (copy).png",
                "author":{
@@ -218,6 +220,7 @@
                "content":"http://localhost:2990/jira/secure/attachment/10020/snipe+%28copy%29.png"
             },
             {
+                  "id": 10000,
                "self":"http://localhost:2990/jira/rest/api/latest/attachment/10000",
                "filename":"snipe.png",
                "author":{
@@ -231,6 +234,7 @@
                "content":"http://localhost:2990/jira/secure/attachment/10000/snipe.png"
             },
             {
+              "id": 10037,
                "self":"http://localhost:2990/jira/rest/api/latest/attachment/10037",
                "filename":"thumb_ScreenSnip.png",
                "author":{

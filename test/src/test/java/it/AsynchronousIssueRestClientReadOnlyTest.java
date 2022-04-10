@@ -15,6 +15,49 @@
  */
 package it;
 
+import static com.google.common.collect.Iterables.size;
+import static com.google.common.collect.Iterables.toArray;
+import static java.util.Collections.singletonList;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.USER1;
+import static m2.glindholm.jira.rest.client.IntegrationTestUtil.getUserUri;
+import static m2.glindholm.jira.rest.client.TestUtil.assertErrorCode;
+import static me.glindholm.jira.rest.client.api.IssueRestClient.Expandos.CHANGELOG;
+import static me.glindholm.jira.rest.client.api.IssueRestClient.Expandos.OPERATIONS;
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_8_4;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.net.URISyntaxException;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.stream.Collectors;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+
+import org.hamcrest.Matcher;
+import org.joda.time.DateTime;
+import org.joda.time.format.ISODateTimeFormat;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -44,48 +87,6 @@ import me.glindholm.jira.rest.client.api.domain.Votes;
 import me.glindholm.jira.rest.client.api.domain.Watchers;
 import me.glindholm.jira.rest.client.api.domain.Worklog;
 import me.glindholm.jira.rest.client.internal.json.TestConstants;
-
-import org.hamcrest.Matcher;
-import org.joda.time.DateTime;
-import org.joda.time.format.ISODateTimeFormat;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.stream.Collectors;
-
-import static com.google.common.collect.Iterables.size;
-import static com.google.common.collect.Iterables.toArray;
-import static java.util.Collections.singletonList;
-import static m2.glindholm.jira.rest.client.IntegrationTestUtil.USER1;
-import static m2.glindholm.jira.rest.client.IntegrationTestUtil.getUserUri;
-import static m2.glindholm.jira.rest.client.TestUtil.assertErrorCode;
-import static me.glindholm.jira.rest.client.api.IssueRestClient.Expandos.CHANGELOG;
-import static me.glindholm.jira.rest.client.api.IssueRestClient.Expandos.OPERATIONS;
-import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
-import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_8_4;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Those tests mustn't change anything on server side, as jira is restored only once
@@ -180,7 +181,7 @@ public class AsynchronousIssueRestClientReadOnlyTest extends AbstractAsynchronou
         assertEquals(IntegrationTestUtil.START_PROGRESS_TRANSITION_ID, size(issue.getAttachments()));
         final Iterable<Attachment> items = issue.getAttachments();
         assertNotNull(items);
-        Attachment attachment1 = new Attachment(IntegrationTestUtil.concat(
+        Attachment attachment1 = new Attachment(0, IntegrationTestUtil.concat(
                 IntegrationTestUtil.TESTING_JIRA_5_OR_NEWER ? UriBuilder.fromUri(jiraUri).path("/rest/api/2/").build()
                         : jiraRestRootUri, "/attachment/10040"),
                 "dla Paw\u0142a.txt", IntegrationTestUtil.USER_ADMIN, dateTime, 643, "text/plain",
@@ -215,7 +216,7 @@ public class AsynchronousIssueRestClientReadOnlyTest extends AbstractAsynchronou
                     new ChangelogItem(FieldType.CUSTOM, "My Radio buttons", null, null, null, "Another"),
                     new ChangelogItem(FieldType.CUSTOM, "project3", null, null, "10000", "Test Project"),
                     new ChangelogItem(FieldType.CUSTOM, "My Number Field New", null, null, null, "1.45")
-            );
+                    );
             assertThat(chg2.getItems(), historyItemsMatcher);
         }
         final Operations operations = issueWithChangelogAndOperations.getOperations();
@@ -225,7 +226,7 @@ public class AsynchronousIssueRestClientReadOnlyTest extends AbstractAsynchronou
                     instanceOf(OperationLink.class),
                     hasProperty("id", is("log-work"))
                     )
-            );
+                    );
         }
     }
 
@@ -257,11 +258,11 @@ public class AsynchronousIssueRestClientReadOnlyTest extends AbstractAsynchronou
         final String optionalDot = isJira5xOrNewer() ? "." : "";
         assertErrorCode(Response.Status.FORBIDDEN,
                 "You do not have the permission to see the specified issue" + optionalDot, new Runnable() {
-                    @Override
-                    public void run() {
-                        client.getIssueClient().getVotes(issue.getVotes().getSelf()).claim();
-                    }
-                });
+            @Override
+            public void run() {
+                client.getIssueClient().getVotes(issue.getVotes().getSelf()).claim();
+            }
+        });
     }
 
     @Test

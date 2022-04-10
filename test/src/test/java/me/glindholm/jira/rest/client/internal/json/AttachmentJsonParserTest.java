@@ -24,7 +24,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import me.glindholm.jira.rest.client.api.domain.Attachment;
-import me.glindholm.jira.rest.client.internal.json.AttachmentJsonParser;
 
 public class AttachmentJsonParserTest {
 
@@ -36,9 +35,9 @@ public class AttachmentJsonParserTest {
         Assert.assertEquals(toUri("http://localhost:8090/jira/secure/attachment/10031/snipe.png"), attachment.getContentUri());
         Assert.assertEquals("admin", attachment.getAuthor().getName());
 
-        Assert.assertEquals(new Attachment(toUri("http://localhost:8090/jira/rest/api/latest/attachment/10031"),
+        Assert.assertEquals(new Attachment(10031, toUri("http://localhost:8090/jira/rest/api/latest/attachment/10031"),
                 "snipe.png", TestConstants.USER_ADMIN_BASIC_DEPRECATED, new DateTime(2010, 7, 26, 13, 31, 35, 577, DateTimeZone
-                .forOffsetHours(2)),
+                        .forOffsetHours(2)),
                 31020, "image/png", toUri("http://localhost:8090/jira/secure/attachment/10031/snipe.png"),
                 toUri("http://localhost:8090/jira/secure/thumbnail/10031/10031_snipe.png")), attachment);
     }

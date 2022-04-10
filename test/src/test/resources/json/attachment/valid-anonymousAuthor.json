@@ -1,4 +1,5 @@
 {
+    "id": 10070,
 	"self": "http://localhost:2990/jira/rest/api/latest/attachment/10070",
 	"filename": "test.txt",
 	"created": "2012-05-10T14:37:54.526+0200",

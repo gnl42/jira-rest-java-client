@@ -16,15 +16,16 @@
 
 package me.glindholm.jira.rest.client.api.domain;
 
+import java.net.URI;
+
+import javax.annotation.Nullable;
+
+import org.joda.time.DateTime;
+
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 import me.glindholm.jira.rest.client.api.AddressableEntity;
-
-import org.joda.time.DateTime;
-
-import javax.annotation.Nullable;
-import java.net.URI;
 
 /**
  * A file attachment attached to an issue
@@ -32,6 +33,7 @@ import java.net.URI;
  * @since v0.1
  */
 public class Attachment implements AddressableEntity {
+    private final long id;
     private final URI self;
     private final String filename;
     private final BasicUser author;
@@ -43,7 +45,9 @@ public class Attachment implements AddressableEntity {
     @Nullable
     private final URI thumbnailUri;
 
-    public Attachment(URI self, String filename, BasicUser author, DateTime creationDate, int size, String mimeType, URI contentUri, URI thumbnailUri) {
+    public Attachment(long id, URI self, String filename, BasicUser author, DateTime creationDate, int size, String mimeType, URI contentUri,
+            URI thumbnailUri) {
+        this.id = id;
         this.self = self;
         this.filename = filename;
         this.author = author;
@@ -56,6 +60,10 @@ public class Attachment implements AddressableEntity {
 
     public boolean hasThumbnail() {
         return thumbnailUri != null;
+    }
+
+    public long getId() {
+        return id;
     }
 
     @Override
@@ -110,14 +118,14 @@ public class Attachment implements AddressableEntity {
     public boolean equals(Object obj) {
         if (obj instanceof Attachment) {
             Attachment that = (Attachment) obj;
-            return Objects.equal(this.self, that.self)
-                    && Objects.equal(this.filename, that.filename)
-                    && Objects.equal(this.author, that.author)
-                    && this.creationDate.isEqual(that.creationDate)
-                    && Objects.equal(this.size, that.size)
-                    && Objects.equal(this.mimeType, that.mimeType)
-                    && Objects.equal(this.contentUri, that.contentUri)
-                    && Objects.equal(this.thumbnailUri, that.thumbnailUri);
+            return Objects.equal(self, that.self)
+                    && Objects.equal(filename, that.filename)
+                    && Objects.equal(author, that.author)
+                    && creationDate.isEqual(that.creationDate)
+                    && Objects.equal(size, that.size)
+                    && Objects.equal(mimeType, that.mimeType)
+                    && Objects.equal(contentUri, that.contentUri)
+                    && Objects.equal(thumbnailUri, that.thumbnailUri);
         }
         return false;
     }
