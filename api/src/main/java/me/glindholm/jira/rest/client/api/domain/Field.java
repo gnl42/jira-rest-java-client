@@ -15,18 +15,21 @@
  */
 package me.glindholm.jira.rest.client.api.domain;
 
+import java.io.Serializable;
+
+import javax.annotation.Nullable;
+
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 import me.glindholm.jira.rest.client.api.IdentifiableEntity;
 import me.glindholm.jira.rest.client.api.NamedEntity;
 
-import javax.annotation.Nullable;
-
 /**
  * Representation of JIRA field, either system or custom.
  */
-public class Field implements NamedEntity, IdentifiableEntity<String> {
+public class Field implements NamedEntity, IdentifiableEntity<String>, Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final String id;
     private final String name;
@@ -38,7 +41,7 @@ public class Field implements NamedEntity, IdentifiableEntity<String> {
     private final FieldSchema schema;
 
     public Field(String id, String name, FieldType fieldType, boolean orderable, boolean navigable, boolean searchable,
-                 @Nullable FieldSchema schema) {
+            @Nullable FieldSchema schema) {
         this.id = id;
         this.name = name;
         this.fieldType = fieldType;
@@ -48,10 +51,12 @@ public class Field implements NamedEntity, IdentifiableEntity<String> {
         this.schema = schema;
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
