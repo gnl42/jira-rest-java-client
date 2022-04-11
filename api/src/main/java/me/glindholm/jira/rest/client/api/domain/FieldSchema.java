@@ -16,17 +16,20 @@
 
 package me.glindholm.jira.rest.client.api.domain;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+import java.io.Serializable;
 
 import javax.annotation.Nullable;
+
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
 /**
  * Represents schema of field in JIRA
  *
  * @since v1.0
  */
-public class FieldSchema {
+public class FieldSchema implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final String type;
     @Nullable
