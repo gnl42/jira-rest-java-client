@@ -74,6 +74,7 @@ import me.glindholm.jira.rest.client.api.domain.BasicProject;
 import me.glindholm.jira.rest.client.api.domain.BasicVotes;
 import me.glindholm.jira.rest.client.api.domain.BasicWatchers;
 import me.glindholm.jira.rest.client.api.domain.ChangelogGroup;
+import me.glindholm.jira.rest.client.api.domain.CimFieldInfo;
 import me.glindholm.jira.rest.client.api.domain.Comment;
 import me.glindholm.jira.rest.client.api.domain.Issue;
 import me.glindholm.jira.rest.client.api.domain.IssueField;
@@ -211,6 +212,7 @@ public class IssueJsonParser implements JsonObjectParser<Issue> {
         return fieldJson.toString(); // JIRA 5.0 way
     }
 
+    final CimFieldsInfoMapJsonParser fieldsParser = new CimFieldsInfoMapJsonParser();
     @Override
     public Issue parse(final JSONObject issueJson) throws JSONException {
         final BasicIssue basicIssue = basicIssueJsonParser.parse(issueJson);
@@ -224,7 +226,11 @@ public class IssueJsonParser implements JsonObjectParser<Issue> {
         final String description = getOptionalFieldStringUnisex(issueJson, DESCRIPTION_FIELD.id);
 
         final Collection<Attachment> attachments = parseOptionalArray(issueJson, new JsonWeakParserForJsonObject<>(attachmentJsonParser), FIELDS, ATTACHMENT_FIELD.id);
-        final Collection<IssueField> fields = parseFields(issueJson);
+
+        final JSONObject editmeta = issueJson.optJSONObject("editmeta");
+        final Map<String, CimFieldInfo> fieldData = editmeta == null ? Collections.<String, CimFieldInfo>emptyMap()
+                : fieldsParser.parse(editmeta.getJSONObject("fields"));
+        final Collection<IssueField> fields = parseFields(issueJson, fieldData);
 
         final IssueType issueType = issueTypeJsonParser.parse(getFieldUnisex(issueJson, ISSUE_TYPE_FIELD.id));
         final DateTime creationDate = JsonParseUtil.parseDateTime(getFieldStringUnisex(issueJson, CREATED_FIELD.id));
@@ -307,7 +313,7 @@ public class IssueJsonParser implements JsonObjectParser<Issue> {
         return null;
     }
 
-    private Collection<IssueField> parseFields(final JSONObject issueJson) throws JSONException {
+    private Collection<IssueField> parseFields(final JSONObject issueJson, Map<String, CimFieldInfo> fieldData) throws JSONException {
         final JSONObject names = providedNames != null ? providedNames : issueJson.optJSONObject(NAMES_SECTION);
         final Map<String, String> namesMap = parseNames(names);
         final JSONObject schema = providedSchema != null ? providedSchema : issueJson.optJSONObject(SCHEMA_SECTION);
@@ -326,11 +332,13 @@ public class IssueJsonParser implements JsonObjectParser<Issue> {
                 // we should use fieldParser here (some new version as the old one probably won't work)
                 // enable IssueJsonParserTest#testParseIssueWithUserPickerCustomFieldFilledOut after fixing this
                 final Object value = json.opt(key);
+                final Object cim;
+                CimFieldInfo cimFieldInfo = fieldData.get(key);
                 fields.add(new IssueField(
                         key,
                         namesMap.get(key),
                         typesMap.get("key"),
-                        value == JSONObject.NULL || value == JSONObject.EXPLICIT_NULL ? null : value));
+                        value == JSONObject.NULL || value == JSONObject.EXPLICIT_NULL ? null : value, cimFieldInfo));
             } catch (final Exception e) {
                 throw new JSONException("Error while parsing [" + key + "] field: " + e.getMessage()) {
                     @Override

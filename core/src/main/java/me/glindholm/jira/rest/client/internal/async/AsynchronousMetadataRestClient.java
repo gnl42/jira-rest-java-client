@@ -15,9 +15,14 @@
  */
 package me.glindholm.jira.rest.client.internal.async;
 
+import java.net.URI;
+
+import javax.ws.rs.core.UriBuilder;
+
 import com.atlassian.httpclient.api.HttpClient;
 
 import io.atlassian.util.concurrent.Promise;
+import me.glindholm.jira.rest.client.api.IssueRestClient.Expandos;
 import me.glindholm.jira.rest.client.api.MetadataRestClient;
 import me.glindholm.jira.rest.client.api.domain.Field;
 import me.glindholm.jira.rest.client.api.domain.IssueType;
@@ -35,9 +40,6 @@ import me.glindholm.jira.rest.client.internal.json.PriorityJsonParser;
 import me.glindholm.jira.rest.client.internal.json.ResolutionJsonParser;
 import me.glindholm.jira.rest.client.internal.json.ServerInfoJsonParser;
 import me.glindholm.jira.rest.client.internal.json.StatusJsonParser;
-
-import javax.ws.rs.core.UriBuilder;
-import java.net.URI;
 
 /**
  * Asynchronous implementation of MetadataRestClient.
@@ -124,7 +126,7 @@ public class AsynchronousMetadataRestClient extends AbstractAsynchronousRestClie
 
     @Override
     public Promise<Iterable<Field>> getFields() {
-        final URI uri = UriBuilder.fromUri(baseUri).path("field").build();
+        final URI uri = UriBuilder.fromUri(baseUri).path("field").queryParam("expand", Expandos.EDITMETA.getValue()).build();
         return getAndParse(uri, fieldsJsonParser);
     }
 }

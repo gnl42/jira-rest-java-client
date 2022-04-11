@@ -16,21 +16,21 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import me.glindholm.jira.rest.client.api.domain.BasicUser;
 import me.glindholm.jira.rest.client.api.domain.IssueField;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class IssueFieldJsonParser {
     private static final String VALUE_ATTRIBUTE = "value";
 
     private Map<String, JsonObjectParser> registeredValueParsers = new HashMap<String, JsonObjectParser>() {{
         put("com.atlassian.jira.plugin.system.customfieldtypes:float", new FloatingPointFieldValueParser());
-        put("com.atlassian.jira.plugin.system.customfieldtypes:userpicker", new FieldValueJsonParser<BasicUser>(new BasicUserJsonParser()));
+        put("com.atlassian.jira.plugin.system.customfieldtypes:userpicker", new FieldValueJsonParser<>(new BasicUserJsonParser()));
         put("java.lang.String", new StringFieldValueParser());
     }};
 
@@ -55,7 +55,7 @@ public class IssueFieldJsonParser {
                 value = valueObject.toString();
             }
         }
-        return new IssueField(id, name, type, value);
+        return new IssueField(id, name, type, value, null);
     }
 
     static class FieldValueJsonParser<T> implements JsonObjectParser<T> {

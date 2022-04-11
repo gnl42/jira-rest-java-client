@@ -16,6 +16,23 @@
 
 package it;
 
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.net.URISyntaxException;
+import java.util.Iterator;
+
+import javax.annotation.Nullable;
+import javax.ws.rs.core.Response;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -24,7 +41,6 @@ import com.google.common.collect.Iterables;
 import m2.glindholm.jira.rest.client.IntegrationTestUtil;
 import m2.glindholm.jira.rest.client.TestUtil;
 import me.glindholm.jira.rest.client.api.AddressableEntity;
-import me.glindholm.jira.rest.client.api.OptionalIterable;
 import me.glindholm.jira.rest.client.api.domain.BasicProject;
 import me.glindholm.jira.rest.client.api.domain.IssueType;
 import me.glindholm.jira.rest.client.api.domain.Priority;
@@ -32,23 +48,6 @@ import me.glindholm.jira.rest.client.api.domain.Project;
 import me.glindholm.jira.rest.client.api.domain.Resolution;
 import me.glindholm.jira.rest.client.internal.ServerVersionConstants;
 import me.glindholm.jira.rest.client.internal.json.TestConstants;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.annotation.Nullable;
-import javax.ws.rs.core.Response;
-import java.net.URISyntaxException;
-import java.util.Iterator;
-
-import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Those tests mustn't change anything on server side, as jira is restored only once
@@ -87,9 +86,9 @@ public class AsynchronousProjectRestClientReadOnlyTest extends AbstractAsynchron
         assertEquals(IntegrationTestUtil.USER_ADMIN_60, project.getLead());
         assertEquals(2, Iterables.size(project.getVersions()));
         assertEquals(2, Iterables.size(project.getComponents()));
-        final OptionalIterable<IssueType> issueTypes = project.getIssueTypes();
+        final Iterable<IssueType> issueTypes = project.getIssueTypes();
         if (isJira4x4OrNewer()) {
-            assertTrue(issueTypes.isSupported());
+            // assertTrue(issueTypes.isSupported());
             final Iterator<IssueType> issueTypesIterator = issueTypes.iterator();
             assertTrue(issueTypesIterator.hasNext());
             final IssueType it = issueTypesIterator.next();
@@ -100,7 +99,7 @@ public class AsynchronousProjectRestClientReadOnlyTest extends AbstractAsynchron
             }
             assertEquals(it.getName(), "Bug");
         } else {
-            assertFalse(issueTypes.isSupported());
+            // assertFalse(issueTypes.isSupported());
         }
     }
 
@@ -123,8 +122,8 @@ public class AsynchronousProjectRestClientReadOnlyTest extends AbstractAsynchron
 
     private String getCannotViewProjectErrorMessage(String key) {
         return isJira4x4OrNewer()
-                ? (isJira5xOrNewer() ? ("No project could be found with key '" + key + "'.") : "You cannot view this project.")
-                : "You must have the browse project permission to view this project.";
+                ? isJira5xOrNewer() ? "No project could be found with key '" + key + "'." : "You cannot view this project."
+                    : "You must have the browse project permission to view this project.";
     }
 
     @Test

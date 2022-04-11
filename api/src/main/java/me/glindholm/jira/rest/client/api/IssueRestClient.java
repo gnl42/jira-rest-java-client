@@ -16,13 +16,22 @@
 
 package me.glindholm.jira.rest.client.api;
 
+import java.io.File;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.google.common.annotations.Beta;
+
 import io.atlassian.util.concurrent.Promise;
 import me.glindholm.jira.rest.client.api.domain.BasicIssue;
 import me.glindholm.jira.rest.client.api.domain.BulkOperationResult;
 import me.glindholm.jira.rest.client.api.domain.CimFieldInfo;
 import me.glindholm.jira.rest.client.api.domain.CimProject;
 import me.glindholm.jira.rest.client.api.domain.Comment;
-import me.glindholm.jira.rest.client.api.domain.Field;
 import me.glindholm.jira.rest.client.api.domain.Issue;
 import me.glindholm.jira.rest.client.api.domain.IssueType;
 import me.glindholm.jira.rest.client.api.domain.Page;
@@ -34,15 +43,6 @@ import me.glindholm.jira.rest.client.api.domain.input.IssueInput;
 import me.glindholm.jira.rest.client.api.domain.input.LinkIssuesInput;
 import me.glindholm.jira.rest.client.api.domain.input.TransitionInput;
 import me.glindholm.jira.rest.client.api.domain.input.WorklogInput;
-
-import com.google.common.annotations.Beta;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.io.File;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Collection;
 
 /**
  * The com.atlassian.jira.rest.client.api handling issue resources.
@@ -306,7 +306,7 @@ public interface IssueRestClient {
      * Expandos supported by {@link IssueRestClient#getIssue(String, Iterable)}
      */
     public enum Expandos {
-        CHANGELOG("changelog"), OPERATIONS("operations"), SCHEMA("schema"), NAMES("names"), TRANSITIONS("transitions");
+        CHANGELOG("changelog"), OPERATIONS("operations"), SCHEMA("schema"), NAMES("names"), TRANSITIONS("transitions"), EDITMETA("editmeta");
 
         private final String value;
 

@@ -2,6 +2,7 @@ package me.glindholm.jira.rest.client.app;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -17,10 +18,18 @@ import com.atlassian.httpclient.api.factory.HttpClientOptions;
 import com.atlassian.httpclient.api.factory.ProxyOptions;
 import com.atlassian.httpclient.api.factory.ProxyOptions.ProxyOptionsBuilder;
 import com.atlassian.httpclient.api.factory.Scheme;
+import com.google.common.collect.ImmutableList;
 
+import me.glindholm.jira.rest.client.api.IssueRestClient;
+import me.glindholm.jira.rest.client.api.IssueRestClient.Expandos;
 import me.glindholm.jira.rest.client.api.JiraRestClient;
+import me.glindholm.jira.rest.client.api.MetadataRestClient;
 import me.glindholm.jira.rest.client.api.RestClientException;
+import me.glindholm.jira.rest.client.api.domain.Field;
+import me.glindholm.jira.rest.client.api.domain.Issue;
+import me.glindholm.jira.rest.client.api.domain.IssueField;
 import me.glindholm.jira.rest.client.api.domain.ServerInfo;
+import me.glindholm.jira.rest.client.api.domain.Subtask;
 import me.glindholm.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 
 public class App {
@@ -32,6 +41,7 @@ public class App {
     private static final String OPTION_JIRA_PASSWORD = "password";
     private static final String OPTION_PROXY_HOST = "proxyHost";
     private static final String OPTION_PROXY_PORT = "proxyPort";
+    private static final String OPTION_TICKET = "ticket";
     private static final String ERROR_PARAMETER      = "Parameter {} is missing";
     private static final String COMMAND_LINE_SYNTAX  = "use the following parameters";
 
@@ -44,7 +54,7 @@ public class App {
                 .addOption("h", OPTION_JIRA_HOST_URL, true, null)
                 .addOption("u", OPTION_JIRA_USERNAME, true, null)
                 .addOption("p", OPTION_JIRA_PASSWORD, true, null)
-                .addOption("ph", OPTION_PROXY_HOST, true, null).addOption("pp", OPTION_PROXY_PORT, true, null)
+                .addOption("ph", OPTION_PROXY_HOST, true, null).addOption("pp", OPTION_PROXY_PORT, true, null).addOption("t", OPTION_TICKET, true, null)
                 ;
 
         try {
@@ -81,7 +91,7 @@ public class App {
 
         HttpClientOptions httpOptions = new HttpClientOptions();
         httpOptions.setUserAgent("jira demo app");
-        if (false && commandLine.hasOption(OPTION_PROXY_HOST) && commandLine.hasOption(OPTION_PROXY_PORT)) {
+        if (commandLine.hasOption(OPTION_PROXY_HOST) && commandLine.hasOption(OPTION_PROXY_PORT)) {
             // Doesn't seem to be support by atlassian-httpclient
             String proxyHost = commandLine.getOptionValue(OPTION_PROXY_HOST);
             String proxyPort = commandLine.getOptionValue(OPTION_PROXY_PORT);
@@ -97,10 +107,23 @@ public class App {
         }
 
         try {
-            ServerInfo serverInfo = client.getMetadataClient().getServerInfo().claim();
+            final MetadataRestClient metadataClient = client.getMetadataClient();
+            ServerInfo serverInfo = metadataClient.getServerInfo().claim();
             log.info("Found JIRA version {}", serverInfo.getVersion());
-        } catch (RestClientException e) {
-            log.error("Error accessing JIRA, please check URL and credentials");
+
+            Iterable<Field> metadata = metadataClient.getFields().get();
+            final IssueRestClient issueClient = client.getIssueClient();
+            if (commandLine.hasOption(OPTION_TICKET)) {
+                String ticket = commandLine.getOptionValue(OPTION_TICKET);
+                Issue issue = issueClient.getIssue(ticket, ImmutableList.of(Expandos.EDITMETA)).get();
+                Iterable<IssueField> issueField = issue.getFields();
+                log.info("{}", issue);
+                for (Subtask subtask : issue.getSubtasks()) {
+                    log.info("  {}", subtask);
+                }
+            }
+        } catch (RestClientException | InterruptedException | ExecutionException e) {
+            log.error("Error accessing JIRA, please check URL and credentials", e);
         }
     }
 }

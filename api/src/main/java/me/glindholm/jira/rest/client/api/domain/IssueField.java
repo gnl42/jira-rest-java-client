@@ -33,18 +33,22 @@ public class IssueField implements NamedEntity, IdentifiableEntity<String> {
     private final String name;
     private final String type;
     private final Object value;
+    private final CimFieldInfo cimFieldInfo;
 
-    public IssueField(String id, String name, String type, Object value) {
+    public IssueField(String id, String name, String type, Object value, CimFieldInfo cimFieldInfo) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.value = value;
+        this.cimFieldInfo = cimFieldInfo;
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -64,7 +68,12 @@ public class IssueField implements NamedEntity, IdentifiableEntity<String> {
                 add("name", name).
                 add("type", type).
                 add("value", getValue()).
+                add("cimFieldInfo", cimFieldInfo).
                 toString();
+    }
+
+    public CimFieldInfo getCimFieldInfo() {
+        return cimFieldInfo;
     }
 
     @Override

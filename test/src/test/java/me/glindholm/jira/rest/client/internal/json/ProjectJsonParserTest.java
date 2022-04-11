@@ -16,14 +16,9 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.google.common.collect.Iterables;
+import static org.junit.Assert.assertEquals;
 
-import m2.glindholm.jira.rest.client.TestUtil;
-import me.glindholm.jira.rest.client.api.OptionalIterable;
-import me.glindholm.jira.rest.client.api.domain.BasicProjectRole;
-import me.glindholm.jira.rest.client.api.domain.IssueType;
-import me.glindholm.jira.rest.client.api.domain.Project;
-import me.glindholm.jira.rest.client.internal.json.ProjectJsonParser;
+import java.net.URISyntaxException;
 
 import org.codehaus.jettison.json.JSONException;
 import org.hamcrest.collection.IsEmptyIterable;
@@ -32,9 +27,12 @@ import org.joda.time.DateMidnight;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.net.URISyntaxException;
+import com.google.common.collect.Iterables;
 
-import static org.junit.Assert.assertEquals;
+import m2.glindholm.jira.rest.client.TestUtil;
+import me.glindholm.jira.rest.client.api.domain.BasicProjectRole;
+import me.glindholm.jira.rest.client.api.domain.IssueType;
+import me.glindholm.jira.rest.client.api.domain.Project;
 
 // Ignore "May produce NPE" warnings, as we know what we are doing in tests
 @SuppressWarnings("ConstantConditions")
@@ -55,8 +53,8 @@ public class ProjectJsonParserTest {
         Assert.assertThat(project.getComponents(), IsIterableContainingInAnyOrder
                 .containsInAnyOrder(TestConstants.BCOMPONENT_A, TestConstants.BCOMPONENT_B));
         Assert.assertNull(project.getName());
-        final OptionalIterable<IssueType> issueTypes = project.getIssueTypes();
-        Assert.assertFalse(issueTypes.isSupported());
+        final Iterable<IssueType> issueTypes = project.getIssueTypes();
+        // Assert.assertFalse(issueTypes.isSupported());
         Assert.assertThat(issueTypes, IsEmptyIterable.<IssueType>emptyIterable());
     }
 
@@ -82,8 +80,8 @@ public class ProjectJsonParserTest {
         Assert.assertEquals(new DateMidnight(2010, 8, 25).toInstant(), Iterables.getLast(project.getVersions()).getReleaseDate()
                 .toInstant());
         Assert.assertEquals("Test Project", project.getName());
-        final OptionalIterable<IssueType> issueTypes = project.getIssueTypes();
-        Assert.assertTrue(issueTypes.isSupported());
+        final Iterable<IssueType> issueTypes = project.getIssueTypes();
+        // Assert.assertTrue(issueTypes.isSupported());
         Assert.assertThat(issueTypes, IsIterableContainingInAnyOrder.containsInAnyOrder(
                 new IssueType(TestUtil
                         .toUri("http://localhost:2990/jira/rest/api/latest/issuetype/1"), 1L, "Bug", false, "A problem which impairs or prevents the functions of the product.", TestUtil
@@ -100,7 +98,7 @@ public class ProjectJsonParserTest {
                 new IssueType(TestUtil
                         .toUri("http://localhost:2990/jira/rest/api/latest/issuetype/5"), 5L, "Sub-task", true, "The sub-task of the issue", TestUtil
                         .toUri("http://localhost:2990/jira/images/icons/issue_subtask.gif"))
-        ));
+                ));
     }
 
     @Test
@@ -114,6 +112,6 @@ public class ProjectJsonParserTest {
                         .toUri("http://localhost:2990/jira/rest/api/latest/project/TST/role/10001"), "Developers"),
                 new BasicProjectRole(TestUtil
                         .toUri("http://localhost:2990/jira/rest/api/latest/project/TST/role/10002"), "Administrators")
-        ));
+                ));
     }
 }
