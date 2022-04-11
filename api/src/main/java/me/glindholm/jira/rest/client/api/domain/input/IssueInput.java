@@ -16,16 +16,15 @@
 
 package me.glindholm.jira.rest.client.api.domain.input;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 
 import me.glindholm.jira.rest.client.api.domain.EntityHelper;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Represents new JIRA issue
@@ -38,6 +37,10 @@ public class IssueInput {
     private final List<PropertyInput> properties;
 
     public static IssueInput createWithFields(FieldInput... fields) {
+        return new IssueInput(Maps.uniqueIndex(ImmutableList.copyOf(fields), EntityHelper.GET_ENTITY_STRING_ID_FUNCTION), new ArrayList<PropertyInput>());
+    }
+
+    public static IssueInput createWithFields(Iterable<FieldInput> fields) {
         return new IssueInput(Maps.uniqueIndex(ImmutableList.copyOf(fields), EntityHelper.GET_ENTITY_STRING_ID_FUNCTION), new ArrayList<PropertyInput>());
     }
 
