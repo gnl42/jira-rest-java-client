@@ -52,7 +52,7 @@ import me.glindholm.jira.rest.client.api.domain.util.ErrorCollection;
 import me.glindholm.jira.rest.client.internal.json.TestConstants;
 
 import org.apache.commons.io.IOUtils;
-import org.joda.time.DateTime;
+import java.time.OffsetDateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -350,25 +350,25 @@ public class AsynchronousIssueRestClientTest extends AbstractAsynchronousRestCli
 
     @Test
     public void testTransitionWithNoRoleOrGroup() {
-        Comment comment = Comment.valueOf("My text which I am just adding " + new DateTime());
+        Comment comment = Comment.valueOf("My text which I am just adding " + OffsetDateTime.now());
         testTransitionImpl(comment);
     }
 
     @Test
     public void testTransitionWithRoleLevel() {
-        Comment comment = Comment.createWithRoleLevel("My text which I am just adding " + new DateTime(), "Users");
+        Comment comment = Comment.createWithRoleLevel("My text which I am just adding " + OffsetDateTime.now(), "Users");
         testTransitionImpl(comment);
     }
 
     @Test
     public void testTransitionWithGroupLevel() {
-        Comment comment = Comment.createWithGroupLevel("My text which I am just adding " + new DateTime(), "jira-users");
+        Comment comment = Comment.createWithGroupLevel("My text which I am just adding " + OffsetDateTime.now(), "jira-users");
         testTransitionImpl(comment);
     }
 
     @Test
     public void testTransitionWithInvalidRole() {
-        final Comment comment = Comment.createWithRoleLevel("My text which I am just adding " + new DateTime(), "some-fake-role");
+        final Comment comment = Comment.createWithRoleLevel("My text which I am just adding " + OffsetDateTime.now(), "some-fake-role");
         if (IntegrationTestUtil.TESTING_JIRA_5_OR_NEWER) {
             assertInvalidCommentInput(comment, "Invalid role level specified.");
         } else {
@@ -379,7 +379,7 @@ public class AsynchronousIssueRestClientTest extends AbstractAsynchronousRestCli
     @Test
     public void testTransitionWithInvalidGroup() {
         final Comment comment = Comment.createWithGroupLevel(
-                "My text which I am just adding " + new DateTime(), "some-fake-group");
+                "My text which I am just adding " + OffsetDateTime.now(), "some-fake-group");
         assertInvalidCommentInput(comment, "Group: some-fake-group does not exist.");
     }
 
@@ -401,7 +401,7 @@ public class AsynchronousIssueRestClientTest extends AbstractAsynchronousRestCli
         final Issue issue = client.getIssueClient().getIssue("TST-1").claim();
         final Iterable<Transition> transitions = client.getIssueClient().getTransitions(issue).claim();
         Transition transitionFound = TestUtil.getTransitionByName(transitions, "Estimate");
-        DateTime now = new DateTime();
+        OffsetDateTime now = OffsetDateTime.now();
         client.getIssueClient().transition(issue, new TransitionInput(transitionFound.getId(), comment)).claim();
 
         final Issue changedIssue = client.getIssueClient().getIssue("TST-1").claim();

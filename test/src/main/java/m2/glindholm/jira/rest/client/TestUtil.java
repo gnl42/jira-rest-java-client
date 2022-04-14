@@ -16,34 +16,37 @@
 
 package m2.glindholm.jira.rest.client;
 
+import static com.google.common.collect.Iterators.getOnlyElement;
+
+import java.net.URI;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.Collections;
+
+import javax.annotation.Nullable;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+
+import org.apache.commons.lang.StringUtils;
+import org.hamcrest.Matchers;
+
 import com.google.common.collect.Iterators;
+
 import junit.framework.Assert;
 import me.glindholm.jira.rest.client.api.RestClientException;
 import me.glindholm.jira.rest.client.api.domain.OperationGroup;
 import me.glindholm.jira.rest.client.api.domain.OperationLink;
 import me.glindholm.jira.rest.client.api.domain.Transition;
 import me.glindholm.jira.rest.client.api.domain.util.ErrorCollection;
-
-import org.apache.commons.lang.StringUtils;
-import org.hamcrest.Matchers;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
-
-import javax.annotation.Nullable;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import java.net.URI;
-import java.util.Collection;
-import java.util.Collections;
-
-import static com.google.common.collect.Iterators.getOnlyElement;
+import me.glindholm.jira.rest.client.internal.json.JsonParseUtil;
 
 public class TestUtil {
-    private static DateTimeFormatter universalDateTimeParser = ISODateTimeFormat.dateTimeParser();
-    private static DateTimeFormatter formatter = ISODateTimeFormat.dateTime();
-    private static DateTimeFormatter dateFormatter = ISODateTimeFormat.date();
+    // private static DateTimeFormatter universalDateTimeParser =
+    // ISODateTimeFormat.dateTimeParser();
+    private static DateTimeFormatter formatter = JsonParseUtil.JIRA_DATE_TIME_FORMATTER;
+    // .ISO_DATE_TIME;
+    private static DateTimeFormatter dateFormatter = JsonParseUtil.JIRA_DATE_FORMATTER;
     public static Iterable<OperationGroup> EMPTY_GROUPS = Collections.emptyList();
     public static Iterable<OperationLink> EMPTY_LINKS = Collections.emptyList();
 
@@ -51,18 +54,16 @@ public class TestUtil {
         return UriBuilder.fromUri(str).build();
     }
 
-    public static DateTime toDateTime(String isoDateTimeSt) {
-        return universalDateTimeParser.parseDateTime(isoDateTimeSt);
+    public static OffsetDateTime toDateTime(String isoDateTimeSt) {
+        return OffsetDateTime.parse(isoDateTimeSt, formatter);
+        //        return universalDateTimeParser.parseDateTime(isoDateTimeSt);
     }
 
-    @SuppressWarnings("unused")
-    public static DateTime toDateTime(String isoDateTimeSt, DateTimeZone zone) {
-        return formatter.withZone(zone).parseDateTime(isoDateTimeSt);
-    }
-
-    public static DateTime toDateTimeFromIsoDate(String isoDate) {
-        return dateFormatter.parseDateTime(isoDate);
-    }
+    //    @SuppressWarnings("unused")
+    //    public static OffsetDateTime toDateTime(String isoDateTimeSt, ZoneId zone) {
+    //        return OffsetDateTime.p
+    //        return formatter.withZone(zone).parseDateTime(isoDateTimeSt);
+    //    }
 
     public static void assertErrorCode(int errorCode, Runnable runnable) {
         assertErrorCode(errorCode, StringUtils.EMPTY, runnable);

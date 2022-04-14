@@ -2,7 +2,7 @@ package me.glindholm.jira.rest.client.internal.json;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-import org.joda.time.DateTime;
+import java.time.OffsetDateTime;
 
 import me.glindholm.jira.rest.client.api.OptionalIterable;
 import me.glindholm.jira.rest.client.api.domain.AuditAssociatedItem;
@@ -36,7 +36,7 @@ public class AuditRecordsJsonParser implements JsonObjectParser<AuditRecordsData
             final String summary = json.getString("summary");
 
             final String createdString = json.getString("created");
-            final DateTime created = JsonParseUtil.parseDateTime(json, "created");
+            final OffsetDateTime created = JsonParseUtil.parseDateTime(json, "created");
             final String category = json.getString("category");
             final String eventSource = json.getString("eventSource");
             final String authorKey = JsonParseUtil.getOptionalString(json, "authorKey");

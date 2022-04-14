@@ -16,6 +16,40 @@
 
 package it;
 
+import static com.google.common.collect.Iterables.toArray;
+import static me.glindholm.jira.rest.client.api.domain.EntityHelper.findEntityByName;
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_6;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.text.MessageFormat;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+import org.hamcrest.Matchers;
+import org.hamcrest.collection.IsIterableWithSize;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -55,40 +89,6 @@ import me.glindholm.jira.rest.client.api.domain.input.PropertyInput;
 import me.glindholm.jira.rest.client.api.domain.util.ErrorCollection;
 import me.glindholm.jira.rest.client.internal.json.JsonParseUtil;
 import me.glindholm.jira.rest.client.internal.json.TestConstants;
-
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-import org.hamcrest.Matchers;
-import org.hamcrest.collection.IsIterableWithSize;
-import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import static com.google.common.collect.Iterables.toArray;
-import static me.glindholm.jira.rest.client.api.domain.EntityHelper.findEntityByName;
-import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_5;
-import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_6;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.hamcrest.core.IsCollectionContaining.hasItems;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 // Ignore "May produce NPE" warnings, as we know what we are doing in tests
 @SuppressWarnings("ConstantConditions")
@@ -138,7 +138,7 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
         final String description = "Some description";
         final BasicUser assignee = IntegrationTestUtil.USER1;
         final List<String> affectedVersionsNames = Collections.emptyList();
-        final DateTime dueDate = new DateTime(new Date().getTime());
+        final OffsetDateTime dueDate = OffsetDateTime.now();
         final ArrayList<String> fixVersionsNames = Lists.newArrayList("1.1");
 
         // prepare IssueInput
@@ -184,7 +184,7 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
         assertEquals(component.getId(), createdIssue.getComponents().iterator().next().getId());
 
         // strip time from dueDate
-        final DateTime expectedDueDate = JsonParseUtil.parseDate(JsonParseUtil.formatDate(dueDate));
+        final OffsetDateTime expectedDueDate = JsonParseUtil.parseDate(JsonParseUtil.formatDate(dueDate));
         assertEquals(expectedDueDate, createdIssue.getDueDate());
 
         final BasicPriority actualPriority = createdIssue.getPriority();
@@ -235,7 +235,7 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
         final String description = "Some description for substask";
         final BasicUser assignee = IntegrationTestUtil.USER1;
         final List<String> affectedVersionsNames = Collections.emptyList();
-        final DateTime dueDate = new DateTime(new Date().getTime());
+        final OffsetDateTime dueDate = OffsetDateTime.now();
         final ArrayList<String> fixVersionsNames = Lists.newArrayList("1.1");
 
         // prepare IssueInput
@@ -277,7 +277,7 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
         assertEquals(component.getId(), createdIssue.getComponents().iterator().next().getId());
 
         // strip time from dueDate
-        final DateTime expectedDueDate = JsonParseUtil.parseDate(JsonParseUtil.formatDate(dueDate));
+        final OffsetDateTime expectedDueDate = JsonParseUtil.parseDate(JsonParseUtil.formatDate(dueDate));
         assertEquals(expectedDueDate, createdIssue.getDueDate());
 
         final BasicPriority actualPriority = createdIssue.getPriority();
@@ -314,7 +314,7 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
         final String description = "Some description for substask";
         final BasicUser assignee = IntegrationTestUtil.USER1;
         final List<String> affectedVersionsNames = Collections.emptyList();
-        final DateTime dueDate = new DateTime(new Date().getTime());
+        final OffsetDateTime dueDate = OffsetDateTime.now();
         final ArrayList<String> fixVersionsNames = Lists.newArrayList("1.1");
 
         final Set<String> summaries = ImmutableSet.of("Summary 1", "Summary 2", "Summary 3", "Summary 4", "Summary 5");
@@ -325,14 +325,14 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
 
             final IssueInputBuilder issueInputBuilder =
                     new IssueInputBuilder(project, issueType, summary)
-                            .setDescription(description)
-                            .setAssignee(assignee)
-                            .setAffectedVersionsNames(affectedVersionsNames)
-                            .setFixVersionsNames(fixVersionsNames)
-                            .setComponents(component)
-                            .setDueDate(dueDate)
-                            .setPriority(priority)
-                            .setFieldValue("parent", ComplexIssueInputFieldValue.with("key", "TST-1"));
+                    .setDescription(description)
+                    .setAssignee(assignee)
+                    .setAffectedVersionsNames(affectedVersionsNames)
+                    .setFixVersionsNames(fixVersionsNames)
+                    .setComponents(component)
+                    .setDueDate(dueDate)
+                    .setPriority(priority)
+                    .setFieldValue("parent", ComplexIssueInputFieldValue.with("key", "TST-1"));
 
             issuesToCreate.add(issueInputBuilder.build());
         }
@@ -413,7 +413,7 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
         final String description = "Some description for substask";
         final BasicUser assignee = IntegrationTestUtil.USER1;
         final List<String> affectedVersionsNames = Collections.emptyList();
-        final DateTime dueDate = new DateTime(new Date().getTime());
+        final OffsetDateTime dueDate = OffsetDateTime.now();
         final ArrayList<String> fixVersionsNames = Lists.newArrayList("1.1");
 
 
@@ -435,14 +435,14 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
 
             final IssueInputBuilder issueInputBuilder =
                     new IssueInputBuilder(currentProjectKey, issueType.getId(), summary)
-                            .setDescription(description)
-                            .setAssignee(assignee)
-                            .setAffectedVersionsNames(affectedVersionsNames)
-                            .setFixVersionsNames(fixVersionsNames)
-                            .setComponents(component)
-                            .setDueDate(dueDate)
-                            .setPriority(priority)
-                            .setFieldValue("parent", ComplexIssueInputFieldValue.with("key", "TST-1"));
+                    .setDescription(description)
+                    .setAssignee(assignee)
+                    .setAffectedVersionsNames(affectedVersionsNames)
+                    .setFixVersionsNames(fixVersionsNames)
+                    .setComponents(component)
+                    .setDueDate(dueDate)
+                    .setPriority(priority)
+                    .setFieldValue("parent", ComplexIssueInputFieldValue.with("key", "TST-1"));
 
             issuesToCreate.add(issueInputBuilder.build());
         }
@@ -524,7 +524,7 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
         final String description = "Some description for substask";
         final BasicUser assignee = IntegrationTestUtil.USER1;
         final List<String> affectedVersionsNames = Collections.emptyList();
-        final DateTime dueDate = new DateTime(new Date().getTime());
+        final OffsetDateTime dueDate = OffsetDateTime.now();
         final ArrayList<String> fixVersionsNames = Lists.newArrayList("1.1");
 
         final Set<String> summaries = ImmutableSet.of("Summary 1", "Summary 2", "Summary 3", "Summary 4", "Summary 5");
@@ -543,14 +543,14 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
 
             final IssueInputBuilder issueInputBuilder =
                     new IssueInputBuilder(currentProjectKey, issueType.getId(), summary)
-                            .setDescription(description)
-                            .setAssignee(assignee)
-                            .setAffectedVersionsNames(affectedVersionsNames)
-                            .setFixVersionsNames(fixVersionsNames)
-                            .setComponents(component)
-                            .setDueDate(dueDate)
-                            .setPriority(priority)
-                            .setFieldValue("parent", ComplexIssueInputFieldValue.with("key", "TST-1"));
+                    .setDescription(description)
+                    .setAssignee(assignee)
+                    .setAffectedVersionsNames(affectedVersionsNames)
+                    .setFixVersionsNames(fixVersionsNames)
+                    .setComponents(component)
+                    .setDueDate(dueDate)
+                    .setPriority(priority)
+                    .setFieldValue("parent", ComplexIssueInputFieldValue.with("key", "TST-1"));
 
             issuesToCreate.add(issueInputBuilder.build());
         }
@@ -648,7 +648,7 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
         final IssueInput issueInput = new IssueInput(ImmutableMap.of(
                 "summary", new FieldInput("summary", "Summary"),
                 "issuetype", new FieldInput("issuetype", ComplexIssueInputFieldValue.with("id", "1"))
-        ), ImmutableList.of(new PropertyInput("testKey", "{\"testValue\" : \"foo\"}")));
+                ), ImmutableList.of(new PropertyInput("testKey", "{\"testValue\" : \"foo\"}")));
         issueClient.createIssue(issueInput).claim();
     }
 
@@ -913,9 +913,9 @@ public class AsynchronousIssueRestClientCreateIssueTest extends AbstractAsynchro
                     // TODO change to group object when implemented
                     value = ImmutableList.of(ComplexIssueInputFieldValue.with("name", IntegrationTestUtil.GROUP_JIRA_ADMINISTRATORS));
                 } else if ("date".equals(fieldType)) {
-                    value = JsonParseUtil.formatDate(new DateTime());
+                    value = JsonParseUtil.formatDate(OffsetDateTime.now());
                 } else if ("datetime".equals(fieldType)) {
-                    value = JsonParseUtil.formatDateTime(new DateTime());
+                    value = JsonParseUtil.formatDateTime(OffsetDateTime.now());
                 } else if ("array".equals(fieldType) && "string".equals(fieldInfo.getSchema().getItems())) {
                     value = ImmutableList.of("one", "two", "three");
                 } else if ("timetracking".equals(fieldType)) {

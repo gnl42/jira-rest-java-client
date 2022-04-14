@@ -20,7 +20,7 @@ import java.net.URI;
 
 import javax.annotation.Nullable;
 
-import org.joda.time.DateTime;
+import java.time.OffsetDateTime;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
@@ -37,7 +37,7 @@ public class Attachment implements AddressableEntity {
     private final URI self;
     private final String filename;
     private final BasicUser author;
-    private final DateTime creationDate;
+    private final OffsetDateTime creationDate;
     private final int size;
     private final String mimeType;
     private final URI contentUri;
@@ -45,7 +45,7 @@ public class Attachment implements AddressableEntity {
     @Nullable
     private final URI thumbnailUri;
 
-    public Attachment(long id, URI self, String filename, BasicUser author, DateTime creationDate, int size, String mimeType, URI contentUri,
+    public Attachment(long id, URI self, String filename, BasicUser author, OffsetDateTime creationDate, int size, String mimeType, URI contentUri,
             URI thumbnailUri) {
         this.id = id;
         this.self = self;
@@ -79,7 +79,7 @@ public class Attachment implements AddressableEntity {
         return author;
     }
 
-    public DateTime getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 

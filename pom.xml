@@ -60,7 +60,6 @@
 		<jira.data.version>${jira.version}</jira.data.version>
 		<jira.test-lib.version>${jira.version}</jira.test-lib.version>
 		<jersey.client.version>2.35</jersey.client.version>
-		<joda.time.version>2.9.9</joda.time.version>
 		<atlassian.httpclient.version>2.1.5</atlassian.httpclient.version>
 		<httpcore.version>4.4.15</httpcore.version>
 		<amps.version>6.3.22-fc341f3d2</amps.version>
@@ -108,6 +107,7 @@
 							</goals>
 							<configuration>
 							 <failOnError>false</failOnError>
+							 <quiet>true</quiet>
 							</configuration>
 						</execution>
 					</executions>
@@ -200,11 +200,6 @@
 				<artifactId>httpmime</artifactId>
 			</dependency>
 
-			<dependency>
-				<groupId>joda-time</groupId>
-				<artifactId>joda-time</artifactId>
-				<version>${joda.time.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.core</groupId>
 				<artifactId>jersey-client</artifactId>

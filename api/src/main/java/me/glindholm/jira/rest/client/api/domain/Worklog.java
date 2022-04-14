@@ -16,15 +16,15 @@
 
 package me.glindholm.jira.rest.client.api.domain;
 
+import java.net.URI;
+import java.time.OffsetDateTime;
+
+import javax.annotation.Nullable;
+
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 import me.glindholm.jira.rest.client.api.AddressableEntity;
-
-import org.joda.time.DateTime;
-
-import javax.annotation.Nullable;
-import java.net.URI;
 
 /**
  * Issue worklog - single worklog entry describing the work logged for selected issue
@@ -38,15 +38,15 @@ public class Worklog implements AddressableEntity {
     private final BasicUser author;
     private final BasicUser updateAuthor;
     private final String comment;
-    private final DateTime creationDate;
-    private final DateTime updateDate;
-    private final DateTime startDate;
+    private final OffsetDateTime creationDate;
+    private final OffsetDateTime updateDate;
+    private final OffsetDateTime startDate;
     private final int minutesSpent;
     @Nullable
     private final Visibility visibility;
 
     public Worklog(URI self, URI issueUri, BasicUser author, BasicUser updateAuthor, @Nullable String comment,
-                   DateTime creationDate, DateTime updateDate, DateTime startDate, int minutesSpent, @Nullable Visibility visibility) {
+            OffsetDateTime creationDate, OffsetDateTime updateDate, OffsetDateTime startDate, int minutesSpent, @Nullable Visibility visibility) {
         this.self = self;
         this.issueUri = issueUri;
         this.author = author;
@@ -59,6 +59,7 @@ public class Worklog implements AddressableEntity {
         this.visibility = visibility;
     }
 
+    @Override
     public URI getSelf() {
         return self;
     }
@@ -79,15 +80,15 @@ public class Worklog implements AddressableEntity {
         return comment;
     }
 
-    public DateTime getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public DateTime getUpdateDate() {
+    public OffsetDateTime getUpdateDate() {
         return updateDate;
     }
 
-    public DateTime getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 

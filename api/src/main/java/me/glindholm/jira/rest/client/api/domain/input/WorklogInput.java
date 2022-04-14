@@ -22,7 +22,7 @@ import com.google.common.base.Objects;
 import me.glindholm.jira.rest.client.api.domain.BasicUser;
 import me.glindholm.jira.rest.client.api.domain.Visibility;
 
-import org.joda.time.DateTime;
+import java.time.OffsetDateTime;
 
 import javax.annotation.Nullable;
 import java.net.URI;
@@ -50,7 +50,7 @@ public class WorklogInput {
     private final BasicUser updateAuthor;
     @Nullable
     private final String comment;
-    private final DateTime startDate;
+    private final OffsetDateTime startDate;
     private final int minutesSpent;
     @Nullable
     private final Visibility visibility;
@@ -75,7 +75,7 @@ public class WorklogInput {
      *                            to {@link AdjustEstimate#NEW} or {@link AdjustEstimate#MANUAL}
      */
     public WorklogInput(@Nullable URI self, URI issueUri, @Nullable BasicUser author, @Nullable BasicUser updateAuthor,
-                        @Nullable String comment, DateTime startDate, int minutesSpent, @Nullable Visibility visibility,
+                        @Nullable String comment, OffsetDateTime startDate, int minutesSpent, @Nullable Visibility visibility,
                         AdjustEstimate adjustEstimate, @Nullable String adjustEstimateValue) {
         this.visibility = visibility;
         this.minutesSpent = minutesSpent;
@@ -102,16 +102,16 @@ public class WorklogInput {
      * @param visibility   visibility settings for this worklog
      */
     public WorklogInput(@Nullable URI self, URI issueUri, @Nullable BasicUser author, @Nullable BasicUser updateAuthor,
-                        @Nullable String comment, DateTime startDate, int minutesSpent, @Nullable Visibility visibility) {
+                        @Nullable String comment, OffsetDateTime startDate, int minutesSpent, @Nullable Visibility visibility) {
         this(self, issueUri, author, updateAuthor, comment, startDate, minutesSpent, visibility, AdjustEstimate.AUTO, null);
     }
 
-    public static WorklogInput create(URI issueUri, @Nullable String comment, DateTime startDate, int minutesSpent) {
+    public static WorklogInput create(URI issueUri, @Nullable String comment, OffsetDateTime startDate, int minutesSpent) {
         return new WorklogInputBuilder(issueUri).setComment(comment).setStartDate(startDate).setMinutesSpent(minutesSpent)
                 .build();
     }
 
-    public static WorklogInput create(URI issueUri, @Nullable String comment, DateTime startDate, int minutesSpent, @Nullable Visibility visibility) {
+    public static WorklogInput create(URI issueUri, @Nullable String comment, OffsetDateTime startDate, int minutesSpent, @Nullable Visibility visibility) {
         return new WorklogInputBuilder(issueUri).setComment(comment).setStartDate(startDate).setMinutesSpent(minutesSpent)
                 .setVisibility(visibility).build();
     }
@@ -140,7 +140,7 @@ public class WorklogInput {
         return comment;
     }
 
-    public DateTime getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 

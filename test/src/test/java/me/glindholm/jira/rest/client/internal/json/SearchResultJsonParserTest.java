@@ -16,23 +16,6 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
-import com.google.common.collect.Iterables;
-
-import me.glindholm.jira.rest.client.api.domain.BasicPriority;
-import me.glindholm.jira.rest.client.api.domain.BasicProject;
-import me.glindholm.jira.rest.client.api.domain.BasicVotes;
-import me.glindholm.jira.rest.client.api.domain.BasicWatchers;
-import me.glindholm.jira.rest.client.api.domain.Issue;
-import me.glindholm.jira.rest.client.api.domain.IssueType;
-import me.glindholm.jira.rest.client.api.domain.SearchResult;
-import me.glindholm.jira.rest.client.api.domain.Status;
-import me.glindholm.jira.rest.client.internal.json.SearchResultJsonParser;
-
-import org.codehaus.jettison.json.JSONException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import static m2.glindholm.jira.rest.client.TestUtil.assertEmptyIterable;
 import static m2.glindholm.jira.rest.client.TestUtil.toDateTime;
 import static m2.glindholm.jira.rest.client.TestUtil.toUri;
@@ -43,6 +26,22 @@ import static me.glindholm.jira.rest.client.internal.json.ResourceUtil.getJsonOb
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+
+import org.codehaus.jettison.json.JSONException;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import com.google.common.collect.Iterables;
+
+import me.glindholm.jira.rest.client.api.domain.BasicPriority;
+import me.glindholm.jira.rest.client.api.domain.BasicProject;
+import me.glindholm.jira.rest.client.api.domain.BasicVotes;
+import me.glindholm.jira.rest.client.api.domain.BasicWatchers;
+import me.glindholm.jira.rest.client.api.domain.Issue;
+import me.glindholm.jira.rest.client.api.domain.IssueType;
+import me.glindholm.jira.rest.client.api.domain.SearchResult;
+import me.glindholm.jira.rest.client.api.domain.Status;
 
 public class SearchResultJsonParserTest {
 
@@ -109,8 +108,8 @@ public class SearchResultJsonParserTest {
         assertNull(issue.getResolution());
         assertNull(issue.getChangelog());
         assertNull(issue.getAttachments());
-        assertEquals(toDateTime("2010-09-22T18:06:32.000+02:00"), issue.getUpdateDate());
-        assertEquals(toDateTime("2010-09-22T18:06:32.000+02:00"), issue.getCreationDate());
+        assertEquals(toDateTime("2010-09-22T18:06:32.000+0200"), issue.getUpdateDate());
+        assertEquals(toDateTime("2010-09-22T18:06:32.000+0200"), issue.getCreationDate());
         assertEquals(TestConstants.USER1, issue.getReporter());
         assertEquals(TestConstants.USER_ADMIN, issue.getAssignee());
 

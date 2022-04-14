@@ -22,7 +22,7 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import org.joda.time.DateTime;
+import java.time.OffsetDateTime;
 
 import com.google.common.base.MoreObjects;
 
@@ -39,7 +39,7 @@ public class Issue extends BasicIssue implements ExpandableResource {
 
     public Issue(String summary, URI self, String key, Long id, BasicProject project, IssueType issueType, Status status,
             String description, @Nullable BasicPriority priority, @Nullable Resolution resolution, Collection<Attachment> attachments,
-            @Nullable User reporter, @Nullable User assignee, DateTime creationDate, DateTime updateDate, DateTime dueDate,
+            @Nullable User reporter, @Nullable User assignee, OffsetDateTime creationDate, OffsetDateTime updateDate, OffsetDateTime dueDate,
             Collection<Version> affectedVersions, Collection<Version> fixVersions, Collection<BasicComponent> components,
             @Nullable TimeTracking timeTracking, Collection<IssueField> issueFields, Collection<Comment> comments,
             @Nullable URI transitionsUri,
@@ -95,9 +95,9 @@ public class Issue extends BasicIssue implements ExpandableResource {
     @Nullable
     private final Resolution resolution;
     private final Collection<IssueField> issueFields;
-    private final DateTime creationDate;
-    private final DateTime updateDate;
-    private final DateTime dueDate;
+    private final OffsetDateTime creationDate;
+    private final OffsetDateTime updateDate;
+    private final OffsetDateTime dueDate;
     private final BasicPriority priority;
     private final BasicVotes votes;
     @Nullable
@@ -336,15 +336,15 @@ public class Issue extends BasicIssue implements ExpandableResource {
         return resolution;
     }
 
-    public DateTime getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public DateTime getUpdateDate() {
+    public OffsetDateTime getUpdateDate() {
         return updateDate;
     }
 
-    public DateTime getDueDate() {
+    public OffsetDateTime getDueDate() {
         return dueDate;
     }
 

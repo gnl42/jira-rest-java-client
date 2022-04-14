@@ -1,5 +1,32 @@
 package it;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.iterableWithSize;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import javax.annotation.Nullable;
+
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
+import org.hamcrest.collection.IsIterableWithSize;
+import org.junit.Test;
+
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -16,34 +43,6 @@ import me.glindholm.jira.rest.client.api.domain.input.AuditRecordBuilder;
 import me.glindholm.jira.rest.client.api.domain.input.AuditRecordSearchInput;
 import me.glindholm.jira.rest.client.api.domain.input.UserInput;
 
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
-import org.hamcrest.collection.IsIterableWithSize;
-import org.joda.time.DateMidnight;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.Period;
-import org.junit.Test;
-
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.iterableWithSize;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 public class AsynchronousAuditRestClientTest extends AbstractAsynchronousRestClientTest {
 
     private static final String USER_MANAGEMENT = "user management";
@@ -56,7 +55,7 @@ public class AsynchronousAuditRestClientTest extends AbstractAsynchronousRestCli
             FULL_NAME_JOHN,
             "johnNotification",
             new ArrayList<>()
-    );
+            );
 
     private static final String FULL_NAME_WILL = "Will";
     private static final UserInput USER_WILL = new UserInput(
@@ -67,7 +66,7 @@ public class AsynchronousAuditRestClientTest extends AbstractAsynchronousRestCli
             FULL_NAME_WILL,
             "willNotification",
             new ArrayList<>()
-    );
+            );
 
     @Test
     public void testGetAllRecordsAndFilterThemByGivenAuditEvent() {
@@ -165,18 +164,18 @@ public class AsynchronousAuditRestClientTest extends AbstractAsynchronousRestCli
                 new AuditAssociatedItem("", "admin", "USER", null, null),
                 new AuditAssociatedItem("123", "Internal item", "PROJECT", null, ""));
         auditRestClient
-                .addAuditRecord(new AuditRecordBuilder(USER_MANAGEMENT, "Event with associated items")
-                        .setAssociatedItems(items)
-                        .build());
+        .addAuditRecord(new AuditRecordBuilder(USER_MANAGEMENT, "Event with associated items")
+                .setAssociatedItems(items)
+                .build());
 
         ImmutableList<AuditChangedValue> changedValues = ImmutableList.of(new AuditChangedValue("Test", "to", "from"));
         auditRestClient
-                .addAuditRecord(new AuditRecordBuilder(USER_MANAGEMENT, "Event with changed values")
-                        .setChangedValues(changedValues)
-                        .build());
+        .addAuditRecord(new AuditRecordBuilder(USER_MANAGEMENT, "Event with changed values")
+                .setChangedValues(changedValues)
+                .build());
 
         auditRestClient
-                .addAuditRecord(new AuditRecordBuilder(USER_MANAGEMENT, "Adding new event").build());
+        .addAuditRecord(new AuditRecordBuilder(USER_MANAGEMENT, "Adding new event").build());
         final int numberOfAddedRecords = 3;
 
         // when
@@ -226,7 +225,8 @@ public class AsynchronousAuditRestClientTest extends AbstractAsynchronousRestCli
 
     @Test
     public void shouldReturnNoRecordsWhenFilteringForTomorrow() {
-        final DateTime tomorrow = new DateMidnight().plus(Period.days(1)).toDateTime();
+        final OffsetDateTime tomorrow = OffsetDateTime.now().plusDays(1).truncatedTo(ChronoUnit.DAYS);
+        // new DateMidnight().plus(Period.days(1)).toDateTime();
 
         final AuditRecordsData auditRecordsData = client.getAuditRestClient().getAuditRecords(new AuditRecordSearchInput(null, null, null, tomorrow, tomorrow)).claim();
 
@@ -238,7 +238,7 @@ public class AsynchronousAuditRestClientTest extends AbstractAsynchronousRestCli
         // given
         final AuditRecordsData firstPageOfRecords = getAllAuditRecords();
         final AuditRecord latestCreatedRecord = getLatestCreatedRecord(firstPageOfRecords);
-        final DateTime latestCreatedDate = latestCreatedRecord.getCreated();
+        final OffsetDateTime latestCreatedDate = latestCreatedRecord.getCreated();
 
         // when
         final AuditRecordSearchInput toLatestSearchCriteria = new AuditRecordSearchInput(null, null, null, null, latestCreatedDate);
@@ -251,8 +251,8 @@ public class AsynchronousAuditRestClientTest extends AbstractAsynchronousRestCli
     @Test
     public void shouldReturnLatestItemWhenFilteringFromLatestCreationDate() {
         final AuditRecord latestCreatedRecord = getLatestCreatedRecord();
-        final DateTime latestCreatedDate = latestCreatedRecord.getCreated();
-        final DateTime latestCreatedDateInStrangeTimezone = latestCreatedDate.toDateTime(DateTimeZone.forOffsetHours(-5));
+        final OffsetDateTime latestCreatedDate = latestCreatedRecord.getCreated();
+        final OffsetDateTime latestCreatedDateInStrangeTimezone = latestCreatedDate.minusHours(5);
 
         // when
         final AuditRecordSearchInput fromLatestSearchCriteria = new AuditRecordSearchInput(null, null, null, latestCreatedDateInStrangeTimezone, null);
@@ -297,8 +297,8 @@ public class AsynchronousAuditRestClientTest extends AbstractAsynchronousRestCli
         final Ordering<AuditRecord> createdTimeAscendingOrdering = new Ordering<AuditRecord>() {
             @Override
             public int compare(@Nullable AuditRecord left, @Nullable AuditRecord right) {
-                final DateTime leftCreatedTime = left.getCreated();
-                final DateTime rightCreatedTime = right.getCreated();
+                final OffsetDateTime leftCreatedTime = left.getCreated();
+                final OffsetDateTime rightCreatedTime = right.getCreated();
 
                 return leftCreatedTime.compareTo(rightCreatedTime);
             }

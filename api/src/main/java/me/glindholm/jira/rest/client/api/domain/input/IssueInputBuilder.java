@@ -16,6 +16,12 @@
 
 package me.glindholm.jira.rest.client.api.domain.input;
 
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -30,14 +36,6 @@ import me.glindholm.jira.rest.client.api.domain.IssueFieldId;
 import me.glindholm.jira.rest.client.api.domain.IssueType;
 import me.glindholm.jira.rest.client.api.domain.Version;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Builder for IssueInput class.
  *
@@ -45,13 +43,13 @@ import java.util.Map;
  */
 public class IssueInputBuilder {
 
-    private static final DateTimeFormatter JIRA_DATE_FORMATTER = ISODateTimeFormat.date();
+    private static final DateTimeFormatter JIRA_DATE_FORMATTER = DateTimeFormatter.ISO_DATE;
 
     private final ValueTransformerManager valueTransformerManager = new ValueTransformerManager()
             .registerTransformer(new BaseValueTransformer());
 
     private Map<String, FieldInput> fields = Maps.newHashMap();
-    private final List<PropertyInput> properties = new ArrayList<PropertyInput>();
+    private final List<PropertyInput> properties = new ArrayList<>();
 
     /**
      * Creates {@link IssueInputBuilder} without any fields pre-populated. Remember to fill required fields for the target
@@ -98,7 +96,7 @@ public class IssueInputBuilder {
         return setFieldInput(new FieldInput(
                 IssueFieldId.ISSUE_TYPE_FIELD,
                 ComplexIssueInputFieldValue.with("id", issueTypeId.toString())
-        ));
+                ));
     }
 
     public IssueInputBuilder setIssueType(IssueType issueType) {
@@ -181,8 +179,8 @@ public class IssueInputBuilder {
         return setComponents(Lists.newArrayList(basicComponents));
     }
 
-    public IssueInputBuilder setDueDate(DateTime date) {
-        return setFieldInput(new FieldInput(IssueFieldId.DUE_DATE_FIELD, JIRA_DATE_FORMATTER.print(date)));
+    public IssueInputBuilder setDueDate(OffsetDateTime date) {
+        return setFieldInput(new FieldInput(IssueFieldId.DUE_DATE_FIELD, date.format(JIRA_DATE_FORMATTER)));
     }
 
     public IssueInputBuilder setFixVersionsNames(Iterable<String> names) {

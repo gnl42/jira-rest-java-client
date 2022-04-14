@@ -1,29 +1,28 @@
 package me.glindholm.jira.rest.client.internal.json;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.Instant;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.Iterator;
+
 import org.junit.Test;
 
 import me.glindholm.jira.rest.client.api.domain.AuditAssociatedItem;
 import me.glindholm.jira.rest.client.api.domain.AuditChangedValue;
 import me.glindholm.jira.rest.client.api.domain.AuditRecord;
 import me.glindholm.jira.rest.client.api.domain.AuditRecordsData;
-import me.glindholm.jira.rest.client.internal.json.AuditRecordsJsonParser;
-
-import java.util.Iterator;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
 
 /**
  * @since v2.0
  */
 public class AuditRecordsJsonParserTest {
 
-    public static final Instant SAMPLE_DATE = new DateTime(1994, 11, 05, 13, 15, 30, 111, DateTimeZone.UTC).toInstant();
+    public static final Instant SAMPLE_DATE = OffsetDateTime.of(1994, 11, 05, 13, 15, 30, 111000000, ZoneOffset.UTC).toInstant();
     private final AuditRecordsJsonParser parser = new AuditRecordsJsonParser();
 
     @Test

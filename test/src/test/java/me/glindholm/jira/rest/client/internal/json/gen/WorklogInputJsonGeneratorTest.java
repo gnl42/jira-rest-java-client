@@ -16,31 +16,29 @@
 
 package me.glindholm.jira.rest.client.internal.json.gen;
 
+import static m2.glindholm.jira.rest.client.TestUtil.toUri;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.ZoneId;
+
+import org.codehaus.jettison.json.JSONException;
+import org.junit.Assert;
+import org.junit.Test;
+
+import m2.glindholm.jira.rest.client.test.matchers.JSONObjectMatcher;
 import me.glindholm.jira.rest.client.api.domain.BasicUser;
 import me.glindholm.jira.rest.client.api.domain.Visibility;
 import me.glindholm.jira.rest.client.api.domain.input.WorklogInput;
 import me.glindholm.jira.rest.client.internal.json.JsonParseUtil;
 import me.glindholm.jira.rest.client.internal.json.ResourceUtil;
-import me.glindholm.jira.rest.client.internal.json.gen.WorklogInputJsonGenerator;
-
-import org.codehaus.jettison.json.JSONException;
-import org.joda.time.DateTimeZone;
-import org.junit.Assert;
-import org.junit.Test;
-
-import m2.glindholm.jira.rest.client.test.matchers.JSONObjectMatcher;
-
-import static m2.glindholm.jira.rest.client.TestUtil.toUri;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class WorklogInputJsonGeneratorTest {
 
     private final BasicUser USER;
     private final BasicUser ADMIN;
     private final WorklogInputJsonGenerator generator = new WorklogInputJsonGenerator(
-            JsonParseUtil.JIRA_DATE_TIME_FORMATTER.withZone(DateTimeZone.forID("+02:00"))
+            JsonParseUtil.JIRA_DATE_TIME_FORMATTER.withZone(ZoneId.of("+02:00"))
     );
 
     public WorklogInputJsonGeneratorTest() throws URISyntaxException {

@@ -1,5 +1,10 @@
 package me.glindholm.jira.rest.client.internal.async;
 
+import java.net.URI;
+
+import javax.annotation.Nonnull;
+import javax.ws.rs.core.UriBuilder;
+
 import com.atlassian.httpclient.api.HttpClient;
 
 import io.atlassian.util.concurrent.Promise;
@@ -10,10 +15,6 @@ import me.glindholm.jira.rest.client.api.domain.input.AuditRecordSearchInput;
 import me.glindholm.jira.rest.client.internal.json.AuditRecordsJsonParser;
 import me.glindholm.jira.rest.client.internal.json.JsonParseUtil;
 import me.glindholm.jira.rest.client.internal.json.gen.AuditRecordInputJsonGenerator;
-
-import javax.annotation.Nonnull;
-import javax.ws.rs.core.UriBuilder;
-import java.net.URI;
 
 /**
  * @since v2.0
@@ -53,21 +54,21 @@ public class AsynchronousAuditRestClient extends AbstractAsynchronousRestClient 
         }
 
         if (input.getLimit() != null) {
-            uriBuilder.queryParam(("limit"), input.getLimit());
+            uriBuilder.queryParam("limit", input.getLimit());
         }
 
         if (input.getTextFilter() != null) {
-            uriBuilder.queryParam(("filter"), input.getTextFilter());
+            uriBuilder.queryParam("filter", input.getTextFilter());
         }
 
         if (input.getFrom() != null) {
-            final String fromIsoString = JsonParseUtil.JIRA_DATE_TIME_FORMATTER.print(input.getFrom());
-            uriBuilder.queryParam(("from"), fromIsoString);
+            final String fromIsoString = input.getFrom().format(JsonParseUtil.JIRA_DATE_TIME_FORMATTER);
+            uriBuilder.queryParam("from", fromIsoString);
         }
 
         if (input.getTo() != null) {
-            final String toIsoString = JsonParseUtil.JIRA_DATE_TIME_FORMATTER.print(input.getTo());
-            uriBuilder.queryParam(("to"), toIsoString);
+            final String toIsoString = input.getTo().format(JsonParseUtil.JIRA_DATE_TIME_FORMATTER);
+            uriBuilder.queryParam("to", toIsoString);
         }
 
         try {

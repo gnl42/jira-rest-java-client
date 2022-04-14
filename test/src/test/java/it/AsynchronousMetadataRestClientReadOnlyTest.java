@@ -16,6 +16,28 @@
 
 package it;
 
+import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_4_3;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.StringEndsWith.endsWith;
+import static org.hamcrest.core.StringStartsWith.startsWith;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.time.OffsetDateTime;
+import java.util.Map;
+
+import javax.ws.rs.core.Response;
+
+import org.hamcrest.Matchers;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.atlassian.jira.nimblefunctests.annotation.JiraBuildNumberDependent;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
@@ -39,27 +61,6 @@ import me.glindholm.jira.rest.client.api.domain.Transition;
 import me.glindholm.jira.rest.client.api.domain.input.TransitionInput;
 import me.glindholm.jira.rest.client.internal.json.TestConstants;
 
-import org.hamcrest.Matchers;
-import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.ws.rs.core.Response;
-import java.util.Map;
-
-import static me.glindholm.jira.rest.client.internal.ServerVersionConstants.BN_JIRA_4_3;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.equalToIgnoringCase;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.hamcrest.core.StringStartsWith.startsWith;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 /**
  * Those tests mustn't change anything on server side, as jira is restored only once
  */
@@ -81,9 +82,10 @@ public class AsynchronousMetadataRestClientReadOnlyTest extends AbstractAsynchro
     public void testGetServerInfo() throws Exception {
         final ServerInfo serverInfo = client.getMetadataClient().getServerInfo().claim();
         assertThat(serverInfo.getServerTitle(), equalToIgnoringCase("Your Company Jira"));
-        assertTrue(serverInfo.getBuildDate().isBeforeNow());
-        assertTrue(serverInfo.getServerTime().isAfter(new DateTime().minusMinutes(5)));
-        assertTrue(serverInfo.getServerTime().isBefore(new DateTime().plusMinutes(5)));
+        final OffsetDateTime now = OffsetDateTime.now();
+        assertTrue(serverInfo.getBuildDate().isBefore(now));
+        assertTrue(serverInfo.getServerTime().isAfter(now.minusMinutes(5)));
+        assertTrue(serverInfo.getServerTime().isBefore(now.plusMinutes(5)));
     }
 
     @Test
@@ -174,7 +176,7 @@ public class AsynchronousMetadataRestClientReadOnlyTest extends AbstractAsynchro
                         endsWith("images/icons/priority_major.gif"),
                         endsWith("images/icons/priorities/major.png"),
                         endsWith("images/icons/priorities/major.svg"))
-        );
+                );
     }
 
     @Test
@@ -202,7 +204,7 @@ public class AsynchronousMetadataRestClientReadOnlyTest extends AbstractAsynchro
         // the declared schema of "votes" field has been corrected in JIRA 7.1
         Field votesField = isJira7_1_OrNewer() ?
                 new Field("votes", "Votes", FieldType.JIRA, false, true, false, new FieldSchema("votes", null, "votes", null, null)) :
-                new Field("votes", "Votes", FieldType.JIRA, false, true, false, new FieldSchema("array", "votes", "votes", null, null));
+                    new Field("votes", "Votes", FieldType.JIRA, false, true, false, new FieldSchema("array", "votes", "votes", null, null));
 
         final Iterable<Field> fields = client.getMetadataClient().getFields().claim();
         assertThat(fields, hasItems(
@@ -227,6 +229,6 @@ public class AsynchronousMetadataRestClientReadOnlyTest extends AbstractAsynchro
                         new FieldSchema("string", null, null, "com.atlassian.jira.plugin.system.customfieldtypes:textarea", 10011l)),
                 new Field("workratio", "Work Ratio", FieldType.JIRA, false, true, true,
                         new FieldSchema("number", null, "workratio", null, null))
-        ));
+                ));
     }
 }

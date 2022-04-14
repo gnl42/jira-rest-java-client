@@ -16,15 +16,14 @@
 
 package me.glindholm.jira.rest.client.api.domain.input;
 
+import java.net.URI;
+import java.time.OffsetDateTime;
+
 import com.google.common.base.Preconditions;
 
 import me.glindholm.jira.rest.client.api.domain.BasicUser;
 import me.glindholm.jira.rest.client.api.domain.Visibility;
 import me.glindholm.jira.rest.client.api.domain.Worklog;
-
-import org.joda.time.DateTime;
-
-import java.net.URI;
 
 /**
  * Builder class for WorklogInput. Allows to create new worklogInput instance by using convenient setters.
@@ -42,7 +41,7 @@ public class WorklogInputBuilder {
     private BasicUser author;
     private BasicUser updateAuthor;
     private String comment;
-    private DateTime startDate;
+    private OffsetDateTime startDate;
     private int minutesSpent;
     private Visibility visibility;
     private WorklogInput.AdjustEstimate adjustEstimate = WorklogInput.AdjustEstimate.AUTO;
@@ -166,7 +165,7 @@ public class WorklogInputBuilder {
         return this;
     }
 
-    public WorklogInputBuilder setStartDate(DateTime startDate) {
+    public WorklogInputBuilder setStartDate(OffsetDateTime startDate) {
         this.startDate = startDate;
         return this;
     }

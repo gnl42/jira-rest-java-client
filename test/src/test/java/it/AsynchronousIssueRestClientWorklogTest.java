@@ -33,7 +33,7 @@ import me.glindholm.jira.rest.client.api.domain.input.WorklogInputBuilder;
 import me.glindholm.jira.rest.client.api.domain.util.ErrorCollection;
 import me.glindholm.jira.rest.client.internal.json.TestConstants;
 
-import org.joda.time.DateTime;
+import java.time.OffsetDateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -284,7 +284,7 @@ public class AsynchronousIssueRestClientWorklogTest extends AbstractAsynchronous
     private WorklogInputBuilder createDefaulWorklogInputBuilder() {
         return new WorklogInputBuilder(toUri("dummy://uri"))
                 .setComment("I created test for adding worklog.")
-                .setStartDate(new DateTime())
+                .setStartDate(OffsetDateTime.now())
                 .setMinutesSpent(20);
     }
 

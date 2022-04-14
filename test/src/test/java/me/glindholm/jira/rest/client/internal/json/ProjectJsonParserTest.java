@@ -19,11 +19,13 @@ package me.glindholm.jira.rest.client.internal.json;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URISyntaxException;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 
 import org.codehaus.jettison.json.JSONException;
 import org.hamcrest.collection.IsEmptyIterable;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
-import org.joda.time.DateMidnight;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -77,7 +79,8 @@ public class ProjectJsonParserTest {
     public void testParseProjectInJira5x0() throws JSONException, URISyntaxException {
         final Project project = parser.parse(ResourceUtil.getJsonObjectFromResource("/json/project/project-jira-5-0.json"));
         Assert.assertEquals("TST", project.getKey());
-        Assert.assertEquals(new DateMidnight(2010, 8, 25).toInstant(), Iterables.getLast(project.getVersions()).getReleaseDate()
+        Assert.assertEquals(OffsetDateTime.of(2010, 8, 25, 0, 0, 0, 0, ZoneOffset.UTC).truncatedTo(ChronoUnit.DAYS).toInstant(),
+                Iterables.getLast(project.getVersions()).getReleaseDate()
                 .toInstant());
         Assert.assertEquals("Test Project", project.getName());
         final Iterable<IssueType> issueTypes = project.getIssueTypes();

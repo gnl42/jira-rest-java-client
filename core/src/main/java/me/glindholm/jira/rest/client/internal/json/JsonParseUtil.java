@@ -16,6 +16,24 @@
 
 package me.glindholm.jira.rest.client.internal.json;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.annotation.Nullable;
+
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
 import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 
@@ -24,31 +42,14 @@ import me.glindholm.jira.rest.client.api.OptionalIterable;
 import me.glindholm.jira.rest.client.api.RestClientException;
 import me.glindholm.jira.rest.client.api.domain.BasicUser;
 
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
-
-import javax.annotation.Nullable;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-
 public class JsonParseUtil {
-    public static final String JIRA_DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-    public static final DateTimeFormatter JIRA_DATE_TIME_FORMATTER = DateTimeFormat.forPattern(JIRA_DATE_TIME_PATTERN);
-    public static final DateTimeFormatter JIRA_DATE_FORMATTER = ISODateTimeFormat.date();
+    public static final DateTimeFormatter JIRA_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    public static final DateTimeFormatter JIRA_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.of("UTC"));
     public static final String SELF_ATTR = "self";
 
     public static <T> Collection<T> parseJsonArray(final JSONArray jsonArray, final JsonObjectParser<T> jsonParser)
             throws JSONException {
-        final Collection<T> res = new ArrayList<T>(jsonArray.length());
+        final Collection<T> res = new ArrayList<>(jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
             res.add(jsonParser.parse(jsonArray.getJSONObject(i)));
         }
@@ -60,7 +61,7 @@ public class JsonParseUtil {
         if (jsonArray == null) {
             return OptionalIterable.absent();
         } else {
-            return new OptionalIterable<T>(JsonParseUtil.<T>parseJsonArray(jsonArray, jsonParser));
+            return new OptionalIterable<>(JsonParseUtil.<T>parseJsonArray(jsonArray, jsonParser));
         }
     }
 
@@ -97,7 +98,7 @@ public class JsonParseUtil {
         JSONArray itemsJa = json.getJSONArray("items");
 
         if (itemsJa.length() > 0) {
-            items = new ArrayList<T>(numItems);
+            items = new ArrayList<>(numItems);
             for (int i = 0; i < itemsJa.length(); i++) {
                 final T item = expandablePropertyBuilder.parse(itemsJa.getJSONObject(i));
                 items.add(item);
@@ -106,7 +107,7 @@ public class JsonParseUtil {
             items = null;
         }
 
-        return new ExpandableProperty<T>(numItems, items);
+        return new ExpandableProperty<>(numItems, items);
     }
 
 
@@ -203,19 +204,19 @@ public class JsonParseUtil {
                 json.optString("accountId", null));
     }
 
-    public static DateTime parseDateTime(final JSONObject jsonObject, final String attributeName) throws JSONException {
+    public static OffsetDateTime parseDateTime(final JSONObject jsonObject, final String attributeName) throws JSONException {
         return parseDateTime(jsonObject.getString(attributeName));
     }
 
     @Nullable
-    public static DateTime parseOptionalDateTime(final JSONObject jsonObject, final String attributeName) throws JSONException {
+    public static OffsetDateTime parseOptionalDateTime(final JSONObject jsonObject, final String attributeName) throws JSONException {
         final String s = getOptionalString(jsonObject, attributeName);
         return s != null ? parseDateTime(s) : null;
     }
 
-    public static DateTime parseDateTime(final String str) {
+    public static OffsetDateTime parseDateTime(final String str) {
         try {
-            return JIRA_DATE_TIME_FORMATTER.parseDateTime(str);
+            return OffsetDateTime.parse(str, JIRA_DATE_TIME_FORMATTER);
         } catch (Exception e) {
             throw new RestClientException(e);
         }
@@ -227,33 +228,33 @@ public class JsonParseUtil {
      * @param str String contains either date and time or date only
      * @return date and time or date only
      */
-    public static DateTime parseDateTimeOrDate(final String str) {
+    public static OffsetDateTime parseDateTimeOrDate(final String str) {
         try {
-            return JIRA_DATE_TIME_FORMATTER.parseDateTime(str);
+            return OffsetDateTime.parse(str, JIRA_DATE_TIME_FORMATTER);
         } catch (Exception ignored) {
             try {
-                return JIRA_DATE_FORMATTER.parseDateTime(str);
+                return OffsetDateTime.of(LocalDate.parse(str, JIRA_DATE_FORMATTER).atStartOfDay(), ZoneOffset.UTC);
             } catch (Exception e) {
                 throw new RestClientException(e);
             }
         }
     }
 
-    public static DateTime parseDate(final String str) {
+    public static OffsetDateTime parseDate(final String str) {
         try {
-            return JIRA_DATE_FORMATTER.parseDateTime(str);
+            return LocalDate.parse(str, JIRA_DATE_FORMATTER).atStartOfDay(ZoneId.of("UTC")).toOffsetDateTime();
         } catch (Exception e) {
             throw new RestClientException(e);
         }
     }
 
-    public static String formatDate(final DateTime dateTime) {
-        return JIRA_DATE_FORMATTER.print(dateTime);
+    public static String formatDate(final OffsetDateTime dateTime) {
+        return dateTime.format(JIRA_DATE_FORMATTER);
     }
 
     @SuppressWarnings("unused")
-    public static String formatDateTime(final DateTime dateTime) {
-        return JIRA_DATE_TIME_FORMATTER.print(dateTime);
+    public static String formatDateTime(final OffsetDateTime dateTime) {
+        return dateTime.format(JIRA_DATE_TIME_FORMATTER);
     }
 
 
@@ -297,7 +298,7 @@ public class JsonParseUtil {
 
 
     public static Collection<String> toStringCollection(final JSONArray jsonArray) throws JSONException {
-        final ArrayList<String> res = new ArrayList<String>(jsonArray.length());
+        final ArrayList<String> res = new ArrayList<>(jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
             res.add(jsonArray.getString(i));
         }
@@ -328,7 +329,7 @@ public class JsonParseUtil {
             if (!(o instanceof String)) {
                 throw new JSONException(
                         "Cannot parse URIs: key is expected to be valid String. Got " + (o == null ? "null" : o.getClass())
-                                + " instead.");
+                        + " instead.");
             }
             final String key = (String) o;
             uris.put(key, JsonParseUtil.parseURI(jsonObject.getString(key)));
