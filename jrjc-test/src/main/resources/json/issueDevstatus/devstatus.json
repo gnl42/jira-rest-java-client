@@ -1,0 +1,92 @@
+{
+    "errors": [
+    ],
+    "configErrors": [
+    ],
+    "summary": {
+        "pullrequest": {
+            "overall": {
+                "count": 4,
+                "lastUpdated": "2022-12-15T16:24:56.000-0800",
+                "stateCount": 1,
+                "state": "OPEN",
+                "details": {
+                    "openCount": 1,
+                    "mergedCount": 3,
+                    "declinedCount": 0
+                },
+                "open": true
+            },
+            "byInstanceType": {
+                "stash": {
+                    "count": 1,
+                    "name": "Bitbucket Server"
+                }
+            }
+        },
+        "build": {
+            "overall": {
+                "count": 6,
+                "lastUpdated": "2022-12-16T04:44:15.000-0800",
+                "failedBuildCount": 0,
+                "successfulBuildCount": 6,
+                "unknownBuildCount": 0
+            },
+            "byInstanceType": {
+                "bamboo": {
+                    "count": 6,
+                    "name": "Bamboo"
+                }
+            }
+        },
+        "review": {
+            "overall": {
+                "count": 0,
+                "lastUpdated": null,
+                "stateCount": 0,
+                "state": null,
+                "dueDate": null,
+                "overDue": false,
+                "completed": false
+            },
+            "byInstanceType": {
+            }
+        },
+        "deployment-environment": {
+            "overall": {
+                "count": 0,
+                "lastUpdated": null,
+                "topEnvironments": [
+                ],
+                "showProjects": false,
+                "successfulCount": 0
+            },
+            "byInstanceType": {
+            }
+        },
+        "repository": {
+            "overall": {
+                "count": 14,
+                "lastUpdated": "2022-12-15T16:22:15.000-0800"
+            },
+            "byInstanceType": {
+                "stash": {
+                    "count": 14,
+                    "name": "Bitbucket Server"
+                }
+            }
+        },
+        "branch": {
+            "overall": {
+                "count": 3,
+                "lastUpdated": "2022-12-15T16:22:20.000-0800"
+            },
+            "byInstanceType": {
+                "stash": {
+                    "count": 3,
+                    "name": "Bitbucket Server"
+                }
+            }
+        }
+    }
+}

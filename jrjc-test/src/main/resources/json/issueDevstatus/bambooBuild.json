@@ -1,0 +1,210 @@
+{
+    "errors": [
+    ],
+    "detail": [
+        {
+            "projects": [
+                {
+                    "key": "SIS",
+                    "name": "SIS",
+                    "url": "https://bamboo.id.ubc.ca:8443/browse/SIS",
+                    "plans": [
+                        {
+                            "key": "SIS-FB",
+                            "name": "1.0 Full Build",
+                            "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-FB",
+                            "branchName": "develop",
+                            "isBranch": false,
+                            "disabled": false,
+                            "build": {
+                                "buildNumber": 1567,
+                                "key": "SIS-FB-1567",
+                                "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-FB-1567",
+                                "buildState": "SUCCESS",
+                                "durationInSeconds": 9106,
+                                "finishedDate": 1671149808000,
+                                "artifacts": [
+                                ],
+                                "testSummary": {
+                                    "totalTestCount": 3555,
+                                    "successfulTestCount": 3501,
+                                    "failedTestCount": 0,
+                                    "quarantinedTestCount": 0
+                                }
+                            }
+                        },
+                        {
+                            "key": "SIS-FBPR1051",
+                            "name": "1.2 Full Build - Pull Request",
+                            "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-FBPR1051",
+                            "branchName": "bugfix-PROD-5866_ecmName",
+                            "isBranch": true,
+                            "disabled": false,
+                            "build": {
+                                "buildNumber": 2,
+                                "key": "SIS-FBPR1051-2",
+                                "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-FBPR1051-2",
+                                "buildState": "UNKNOWN",
+                                "durationInSeconds": 3815,
+                                "finishedDate": 1671342804000,
+                                "artifacts": [
+                                ],
+                                "testSummary": {
+                                    "totalTestCount": 0,
+                                    "successfulTestCount": 0,
+                                    "failedTestCount": 0,
+                                    "quarantinedTestCount": 0
+                                }
+                            }
+                        },
+                        {
+                            "key": "SIS-FBPR1049",
+                            "name": "1.2 Full Build - Pull Request",
+                            "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-FBPR1049",
+                            "branchName": "bugfix-PROD-6051",
+                            "isBranch": true,
+                            "disabled": true,
+                            "build": {
+                                "buildNumber": 1,
+                                "key": "SIS-FBPR1049-1",
+                                "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-FBPR1049-1",
+                                "buildState": "SUCCESS",
+                                "durationInSeconds": 2768,
+                                "finishedDate": 1670623997000,
+                                "artifacts": [
+                                ],
+                                "testSummary": {
+                                    "totalTestCount": 3555,
+                                    "successfulTestCount": 3501,
+                                    "failedTestCount": 0,
+                                    "quarantinedTestCount": 0
+                                }
+                            }
+                        },
+                        {
+                            "key": "SIS-FBPR1054",
+                            "name": "1.2 Full Build - Pull Request",
+                            "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-FBPR1054",
+                            "branchName": "bugfix-PROD-6051_2",
+                            "isBranch": true,
+                            "disabled": false,
+                            "build": {
+                                "buildNumber": 1,
+                                "key": "SIS-FBPR1054-1",
+                                "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-FBPR1054-1",
+                                "buildState": "SUCCESS",
+                                "durationInSeconds": 2862,
+                                "finishedDate": 1671153162000,
+                                "artifacts": [
+                                ],
+                                "testSummary": {
+                                    "totalTestCount": 3555,
+                                    "successfulTestCount": 3501,
+                                    "failedTestCount": 0,
+                                    "quarantinedTestCount": 0
+                                }
+                            }
+                        },
+                        {
+                            "key": "SIS-SBD",
+                            "name": "1.5 Stage Env - Build And Deploy",
+                            "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-SBD",
+                            "branchName": "develop",
+                            "isBranch": false,
+                            "disabled": false,
+                            "build": {
+                                "buildNumber": 703,
+                                "key": "SIS-SBD-703",
+                                "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-SBD-703",
+                                "buildState": "SUCCESS",
+                                "durationInSeconds": 5318,
+                                "finishedDate": 1671172196000,
+                                "artifacts": [
+                                    {
+                                        "name": "Artifacts",
+                                        "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-SBD-703/artifact/shared/Artifacts/"
+                                    },
+                                    {
+                                        "name": "Project files",
+                                        "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-SBD-703/artifact/shared/Project-files/"
+                                    }
+                                ],
+                                "testSummary": {
+                                    "totalTestCount": 0,
+                                    "successfulTestCount": 0,
+                                    "failedTestCount": 0,
+                                    "quarantinedTestCount": 0
+                                }
+                            }
+                        },
+                        {
+                            "key": "SIS-FBWNS",
+                            "name": "1.7 Full Build With SNAPSHOT removal",
+                            "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-FBWNS",
+                            "branchName": "develop",
+                            "isBranch": false,
+                            "disabled": false,
+                            "build": {
+                                "buildNumber": 471,
+                                "key": "SIS-FBWNS-471",
+                                "url": "https://bamboo.id.ubc.ca:8443/browse/SIS-FBWNS-471",
+                                "buildState": "SUCCESS",
+                                "durationInSeconds": 2651,
+                                "finishedDate": 1671194655000,
+                                "artifacts": [
+                                ],
+                                "testSummary": {
+                                    "totalTestCount": 0,
+                                    "successfulTestCount": 0,
+                                    "failedTestCount": 0,
+                                    "quarantinedTestCount": 0
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SITS",
+                    "name": "SITS",
+                    "url": "https://bamboo.id.ubc.ca:8443/browse/SITS",
+                    "plans": [
+                        {
+                            "key": "SITS-SC",
+                            "name": "SITS Connector",
+                            "url": "https://bamboo.id.ubc.ca:8443/browse/SITS-SC",
+                            "branchName": "master",
+                            "isBranch": false,
+                            "disabled": false,
+                            "build": {
+                                "buildNumber": 829,
+                                "key": "SITS-SC-829",
+                                "url": "https://bamboo.id.ubc.ca:8443/browse/SITS-SC-829",
+                                "buildState": "SUCCESS",
+                                "durationInSeconds": 33,
+                                "finishedDate": 1671043918000,
+                                "artifacts": [
+                                ],
+                                "testSummary": {
+                                    "totalTestCount": 98,
+                                    "successfulTestCount": 94,
+                                    "failedTestCount": 0,
+                                    "quarantinedTestCount": 0
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "_instance": {
+                "applicationLinkId": "3dd6af0e-0d01-3cc0-8640-9b94d4cd8dcc",
+                "baseUrl": "https://bamboo.id.ubc.ca:8443",
+                "singleInstance": false,
+                "primary": true,
+                "name": "UBC IT Production Bamboo",
+                "typeName": "Bamboo",
+                "id": "3dd6af0e-0d01-3cc0-8640-9b94d4cd8dcc",
+                "type": "bamboo"
+            }
+        }
+    ]
+}
