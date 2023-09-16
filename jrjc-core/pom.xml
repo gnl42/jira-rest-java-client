@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>me.glindholm.jira</groupId>
 		<artifactId>jira-rest-java-client-parent</artifactId>
-		<version>6.1.0-SNAPSHOT</version>
+		<version>6.2.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>jira-rest-java-client-core</artifactId>
@@ -115,6 +115,10 @@
 			<version>5.1.3</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
 
 	</dependencies>
 
@@ -138,7 +142,7 @@
 						<configuration>
 							<includeArtifactIds>
 								sal,sal-api,fugue,atlassian-httpclient-library,atlassian-event,atlassian-httpclient-api,
-								jettison,jakarta.ws.rs-api,spring-beans,
+								jettison,jakarta.ws.rs-api,spring-beans,slf4j-api,
 								httpcore5,httpclient,httpasyncclient-cache,httpmime,httpcore,httpcore-nio,httpclient-cache,httpasyncclient</includeArtifactIds>
 							<outputDirectory>target/lib</outputDirectory>
 							<stripVersion>true</stripVersion>
@@ -181,8 +185,10 @@
 				<artifactId>maven-jxr-plugin</artifactId>
 				<configuration>
 					<excludes>
-						<exclude>me/glindholm/jira/rest/client/internal/**/*.java</exclude>
-					</excludes>-
+						<exclude>
+					me/glindholm/jira/rest/client/internal/**/*.java</exclude>
+					</excludes>
+					-
 				</configuration>
 			</plugin>
 		</plugins>
