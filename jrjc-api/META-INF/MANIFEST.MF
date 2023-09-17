@@ -12,10 +12,12 @@ Bundle-ClassPath: .,
 Bundle-Vendor: George Lindholm
 Eclipse-BuddyPolicy: registered
 Export-Package: com.atlassian.httpclient.api,
+ com.atlassian.httpclient.api.factory,
  io.atlassian.util.concurrent,
  me.glindholm.jira.rest.client.api,
  me.glindholm.jira.rest.client.api.domain,
  me.glindholm.jira.rest.client.api.domain.input,
  me.glindholm.jira.rest.client.api.domain.util
+Import-Package: org.slf4j;version="1.7.30"
 Require-Bundle: org.eclipse.jdt.annotation,
  com.google.guava
